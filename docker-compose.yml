@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    ports:
+      - ${API_PORT:-82}:80
+    volumes:
+      - ./:/game-store/api
+    networks:
+      - game-store
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+    restart: always
+  web:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    ports:
+      - ${WEB_PORT:-81}:3000
+      - 24678:24678
+    volumes:
+      - ./web:/game-store/web
+    networks:
+      - game-store
+    env_file:
+      - .env
+    depends_on:
+      - api
+    restart: always
+  postgres:
+    image: postgres:15.2-alpine3.17
+    ports:
+      - ${DB_PORT:-5433}:5432
+    environment:
+      POSTGRES_USER: ${DB_USER:-foam}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-foam}
+      POSTGRES_DB: ${DB_DATABASE:-foam}
+    volumes:
+      - ./:/game-store/postgres
+    networks:
+      - game-store
+    env_file:
+      - .env
+    restart: always
+
+networks:
+  game-store:
