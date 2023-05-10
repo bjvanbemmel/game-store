@@ -5,6 +5,11 @@ export default defineNuxtConfig({
             title: 'Game store',
         },
     },
+    components: [
+        '~/components',
+        '~/components/lib',
+        '~/components/skeleton',
+    ],
     css: [
         '~/assets/css/main.css',
     ],
