@@ -4,7 +4,7 @@
         <ul class="flex flex-col gap-3 text-zinc-200 p-8 w-full">
             <NavigationSearch />
             <NavigationLink
-                route="index"
+                route="/"
             >
                 <ChartBarIcon
                     class="h-6"
@@ -12,7 +12,7 @@
                 Most popular
             </NavigationLink>
             <NavigationLink
-                route="rating"
+                route="highest-rated"
             >
                 <HeartIcon
                     class="h-6"

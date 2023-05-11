@@ -2,12 +2,12 @@
     <li
         class="hover:bg-zinc-700 rounded-md w-full"
         :class="{
-            'bg-zinc-900': props.route === route.name,
+            'bg-zinc-900': props.route === route.path,
         }"
     >
         <NuxtLink
             class="flex items-center gap-5 p-4 w-full text-lg"
-            to="/"
+            :to="props.route"
         >
             <slot />
         </NuxtLink>
