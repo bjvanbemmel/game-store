@@ -1,0 +1,12 @@
+USAGE: game [ARGUMENT]
+
+Available commands:
+    game help       -   Shows an overview of available commands
+    game serve      -   Boot up the API
+    game migrate    -   Generate the database tables
+    game seed       -   Fill up the database with dummy data
+
+Created for ICT-Flex's front-end assignment.
+Code is available at https://github.com/bjvanbemmel/game-store.
+
+(c) Beau Jean van Bemmel, 2023
