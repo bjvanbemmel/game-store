@@ -13,9 +13,9 @@ func (s Serve) Execute() error {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello, World!"))
+	r.Get("/api/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Pong!"))
 	})
 
-	return http.ListenAndServe(":80", r)
+	return http.ListenAndServe(":8123", r)
 }
