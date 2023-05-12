@@ -18,7 +18,12 @@ func main() {
 
 	var handler cmd.Handler = cmd.Handler{}
 
-	err := handler.MatchAndRun(args[1])
+	cmd, err := handler.Match(args[1])
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	err = cmd.Execute()
 	if err != nil {
 		log.Fatal(err.Error())
 	}

@@ -6,9 +6,11 @@ type Command interface {
 	Execute() error
 }
 
+var ArgNotFoundErr error = errors.New("Argument not found.")
+
 type Handler struct{}
 
-func (h Handler) MatchAndRun(arg string) error {
+func (h Handler) Match(arg string) (Command, error) {
 	cmds := map[string]Command{
 		"help":    Help{},
 		"serve":   Serve{},
@@ -17,8 +19,8 @@ func (h Handler) MatchAndRun(arg string) error {
 	}
 
 	if c, ok := cmds[arg]; ok {
-		return c.Execute()
+		return c, nil
 	}
 
-	return errors.New("Argument not found.")
+	return nil, ArgNotFoundErr
 }

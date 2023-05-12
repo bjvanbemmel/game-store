@@ -12,7 +12,7 @@ import (
 
 var embedEmptyErr error = errors.New("docs/embed.txt is empty")
 
-func TestHelp(t *testing.T) {
+func TestHelpShouldPrint(t *testing.T) {
 	if len(docs.HelpEmbed) == 0 {
 		t.Fatal(embedEmptyErr)
 	}

@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TestServe(t *testing.T) {
+func TestServeShouldRespondToPing(t *testing.T) {
 	var expect string = "Pong!"
 
 	serve := Serve{}
