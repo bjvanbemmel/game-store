@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func TestExecute(t *testing.T) {
+func TestServe(t *testing.T) {
 	var expect string = "Pong!"
 
 	serve := Serve{}
