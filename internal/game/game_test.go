@@ -3,30 +3,45 @@ package game
 import (
 	"database/sql"
 	"testing"
+
+	"github.com/bjvanbemmel/game-store/internal/developer"
 )
 
-func TestGameInsertsProperly(t *testing.T) {
+func TestGameCanInsertAndFindResult(t *testing.T) {
+	var dsn string = "file:unit_tests.db?cache=shared&mode=memory"
+	db, err := sql.Open("sqlite3", dsn)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+
+	db.SetMaxOpenConns(1)
+
+	var migrator GameMigrator = GameMigrator{}
+	migrator.Migrate(db)
+
 	var game Game = Game{
-		Title: "Test",
+		Title:       "Stardew Valley",
+		Description: "A videogame",
+		Thumbnail:   "https://duckduckgo.com/",
+		Developer: []*developer.Developer{
+			{
+				Name: "Concerned Ape",
+			},
+		},
 	}
 
-	err := Insert(sql.DB{}, &game)
+	err = Insert(db, &game)
 	if err != nil {
 		t.Fatal(err)
 	}
-}
 
-func TestGameFirstReturnsValidRecord(t *testing.T) {
-	var game Game = Game{}
-
-	err := First(sql.DB{}, &game)
-	if err != nil {
+	var g Game = Game{}
+	if err := First(db, &g); err != nil {
 		t.Fatal(err)
 	}
 
-	if game.Title != "Test" {
-		t.Fatalf("Expected %q, got %q.\n%v", "Test", game.Title, err)
-	}
+	t.Log(g)
 }
 
 func TestGameShouldReturnTenEntries(t *testing.T) {

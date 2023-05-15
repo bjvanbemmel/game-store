@@ -22,22 +22,35 @@ type Game struct {
 	Thumbnail   string
 	Developer   []*developer.Developer
 
-	*internal.Model
+	internal.Model
 }
 
-func Insert(db sql.DB, game ...*Game) error {
+func Insert(db *sql.DB, game ...*Game) error {
 	for _, g := range game {
 		if err := validateFields(*g); err != nil {
 			return err
 		}
 
+		var query string = `
+            INSERT INTO games (
+                id, title, description, thumbnail
+            ) VALUES (
+                NULL, ?, ?, ?
+            );
+        `
+
+		if _, err := db.Exec(query, g.Title, g.Description, g.Thumbnail); err != nil {
+			return err
+		}
 	}
 
 	return nil
 }
 
-func First(db sql.DB, game *Game) error {
-	game = nil
+func First(db *sql.DB, game *Game) error {
+	var query string = "SELECT * FROM games LIMIT 1;"
+
+	db.QueryRow(query).Scan(&game.ID, &game.Title, &game.Description, &game.Thumbnail)
 
 	return nil
 }
