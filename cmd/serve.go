@@ -17,5 +17,5 @@ func (s Serve) Execute() error {
 		w.Write([]byte("Pong!"))
 	})
 
-	return http.ListenAndServe(":8123", r)
+	return http.ListenAndServe(":80", r)
 }

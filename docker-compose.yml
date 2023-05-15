@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: docker/go/Dockerfile
     ports:
-      - ${API_PORT:-82}:8123
+      - ${API_PORT:-81}:80
     volumes:
       - ./:/game-store/api
     networks:
@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: docker/node/Dockerfile
     ports:
-      - ${WEB_PORT:-81}:3000
+      - ${WEB_PORT:-82}:3000
       - 24678:24678
     volumes:
       - ./web:/game-store/web

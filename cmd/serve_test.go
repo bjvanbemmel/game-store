@@ -17,7 +17,7 @@ func TestServeShouldRespondToPing(t *testing.T) {
 	var err error
 
 	for i := 0; i < 5; i++ {
-		resp, err = http.Get("http://127.0.0.1:8123/api/ping")
+		resp, err = http.Get("http://127.0.0.1:80/api/ping")
 		if err != nil {
 			time.Sleep(time.Second)
 
