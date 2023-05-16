@@ -1,7 +1,7 @@
 package internal
 
 type Model struct {
-	ID        int64
+	ID        int
 	CreatedAt int
 	UpdatedAt int
 }

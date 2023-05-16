@@ -55,14 +55,44 @@ func First(db *sql.DB, game *Game) error {
 	return nil
 }
 
-func List(db sql.DB, limit int, games []*Game) error {
-	games = nil
+func List(db *sql.DB, limit int, games *[]*Game) error {
+	var query string = "SELECT * FROM games LIMIT ?;"
+
+	r, err := db.Query(query, limit)
+	if err != nil {
+		return err
+	}
+
+	for r.Next() {
+		var game Game = Game{}
+		r.Scan(&game.ID, &game.Title, &game.Description, &game.Thumbnail)
+
+		*games = append(*games, &game)
+	}
 
 	return nil
 }
 
-func Paginate(db sql.DB, offset int, limit int, games []*Game) error {
-	games = nil
+func Paginate(db *sql.DB, page int, limit int, games *[]*Game) error {
+	if limit == 0 {
+		limit = 50
+	}
+
+	page -= 1
+
+	var query string = "SELECT * FROM games LIMIT ? OFFSET ?;"
+
+	r, err := db.Query(query, limit, page*limit)
+	if err != nil {
+		return err
+	}
+
+	for r.Next() {
+		var game Game = Game{}
+		r.Scan(&game.ID, &game.Title, &game.Description, &game.Thumbnail)
+
+		*games = append(*games, &game)
+	}
 
 	return nil
 }
