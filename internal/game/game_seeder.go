@@ -94,12 +94,11 @@ var games []Game = []Game{
 func (s GameSeeder) Seed(db *sql.DB) error {
 	var query string = `
         INSERT INTO games (
-            id, title, description, thumbnail
+            title, description, thumbnail
         ) VALUES (
-            NULL,
-            ?,
-            ?,
-            ?
+            $1,
+            $2,
+            $3
         );
     `
 

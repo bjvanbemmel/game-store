@@ -17,12 +17,12 @@ var (
 )
 
 type Game struct {
+	internal.Model
+
 	Title       string
 	Description string
 	Thumbnail   string
 	Developer   []*developer.Developer
-
-	internal.Model
 }
 
 func Insert(db *sql.DB, game ...*Game) error {
@@ -33,9 +33,9 @@ func Insert(db *sql.DB, game ...*Game) error {
 
 		var query string = `
             INSERT INTO games (
-                id, title, description, thumbnail
+                title, description, thumbnail
             ) VALUES (
-                NULL, ?, ?, ?
+                $1, $2, $3
             );
         `
 
@@ -56,7 +56,7 @@ func First(db *sql.DB, game *Game) error {
 }
 
 func List(db *sql.DB, limit int, games *[]*Game) error {
-	var query string = "SELECT * FROM games LIMIT ?;"
+	var query string = "SELECT * FROM games LIMIT $1;"
 
 	r, err := db.Query(query, limit)
 	if err != nil {
@@ -80,7 +80,7 @@ func Paginate(db *sql.DB, page int, limit int, games *[]*Game) error {
 
 	page -= 1
 
-	var query string = "SELECT * FROM games LIMIT ? OFFSET ?;"
+	var query string = "SELECT * FROM games LIMIT $1 OFFSET $2;"
 
 	r, err := db.Query(query, limit, page*limit)
 	if err != nil {

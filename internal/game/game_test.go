@@ -1,24 +1,24 @@
 package game
 
 import (
-	"database/sql"
 	"testing"
 
+	"github.com/bjvanbemmel/game-store/internal"
 	"github.com/bjvanbemmel/game-store/internal/developer"
 )
 
 func TestGameCanInsertAndFindResult(t *testing.T) {
-	var dsn string = "file:unit_tests.db?cache=shared&mode=memory"
-	db, err := sql.Open("sqlite3", dsn)
-	if err != nil {
+	var db internal.Db = internal.Db{}
+	if err := db.Environment("test"); err != nil {
+		t.Fatal(err)
+	}
+	if err := db.Connect(); err != nil {
 		t.Fatal(err)
 	}
 	defer db.Close()
 
-	db.SetMaxOpenConns(1)
-
 	var migrator GameMigrator = GameMigrator{}
-	migrator.Migrate(db)
+	migrator.Migrate(db.DB)
 
 	var game Game = Game{
 		Title:       "Stardew Valley",
@@ -31,36 +31,40 @@ func TestGameCanInsertAndFindResult(t *testing.T) {
 		},
 	}
 
-	err = Insert(db, &game)
+	t.Log(db.ConnectionString)
+
+	err := Insert(db.DB, &game)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	var g Game = Game{}
-	if err := First(db, &g); err != nil {
+	if err := First(db.DB, &g); err != nil {
 		t.Fatal(err)
 	}
 }
 
 func TestGameShouldReturnTenEntries(t *testing.T) {
-	var dsn string = "file:unit_tests.db?cache=shared&mode=memory"
-	db, err := sql.Open("sqlite3", dsn)
-	if err != nil {
+	db := internal.Db{}
+	if err := db.Environment("test"); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := db.Connect(); err != nil {
 		t.Fatal(err)
 	}
 	defer db.Close()
 
-	db.SetMaxOpenConns(1)
-
 	var migrator GameMigrator = GameMigrator{}
-	migrator.Migrate(db)
+	migrator.Clear(db.DB)
+	migrator.Migrate(db.DB)
 
 	var seeder GameSeeder = GameSeeder{}
-	seeder.Seed(db)
+	seeder.Seed(db.DB)
 
 	var games []*Game = []*Game{}
 
-	err = List(db, 10, &games)
+	err := List(db.DB, 10, &games)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -71,24 +75,26 @@ func TestGameShouldReturnTenEntries(t *testing.T) {
 }
 
 func TestGameShouldPaginateFromFiveToTen(t *testing.T) {
-	var dsn string = "file:unit_tests.db?cache=shared&mode=memory"
-	db, err := sql.Open("sqlite3", dsn)
-	if err != nil {
+	db := internal.Db{}
+	if err := db.Environment("test"); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := db.Connect(); err != nil {
 		t.Fatal(err)
 	}
 	defer db.Close()
 
-	db.SetMaxOpenConns(1)
-
 	var migrator GameMigrator = GameMigrator{}
-	migrator.Migrate(db)
+	migrator.Clear(db.DB)
+	migrator.Migrate(db.DB)
 
 	var seeder GameSeeder = GameSeeder{}
-	seeder.Seed(db)
+	seeder.Seed(db.DB)
 
 	var games []*Game = []*Game{}
 
-	err = Paginate(db, 2, 5, &games)
+	err := Paginate(db.DB, 2, 5, &games)
 	if err != nil {
 		t.Fatal(err)
 	}

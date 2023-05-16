@@ -14,7 +14,8 @@ services:
     env_file:
       - .env
     depends_on:
-      - postgres
+      - postgres-prod
+      - postgres-test
     restart: always
   gokiburi:
     build:
@@ -47,14 +48,29 @@ services:
     depends_on:
       - api
     restart: always
-  postgres:
+  postgres-prod:
     image: postgres:15.2-alpine3.17
     ports:
-      - ${DB_PORT:-5433}:5432
+      - ${DB_PROD_PORT:-5433}:5432
     environment:
-      POSTGRES_USER: ${DB_USER:-foam}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-foam}
-      POSTGRES_DB: ${DB_DATABASE:-foam}
+      POSTGRES_USER: ${DB_PROD_USER:-game-store}
+      POSTGRES_PASSWORD: ${DB_PROD_PASSWORD:-game-store}
+      POSTGRES_DB: ${DB_PROD_DATABASE:-game-store}
+    volumes:
+      - ./:/game-store/postgres
+    networks:
+      - game-store
+    env_file:
+      - .env
+    restart: always
+  postgres-test:
+    image: postgres:15.2-alpine3.17
+    ports:
+      - ${DB_TEST_PORT:-54333}:5432
+    environment:
+      POSTGRES_USER: ${DB_TEST_USER:-game-store}
+      POSTGRES_PASSWORD: ${DB_TEST_PASSWORD:-game-store}
+      POSTGRES_DB: ${DB_TEST_DATABASE:-game-store}
     volumes:
       - ./:/game-store/postgres
     networks:
