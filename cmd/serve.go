@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bjvanbemmel/game-store/internal"
+	"github.com/bjvanbemmel/game-store/internal/developer"
 	"github.com/bjvanbemmel/game-store/internal/game"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -14,6 +14,9 @@ import (
 var (
 	db             internal.Db         = internal.Db{}
 	gameController game.GameController = game.GameController{
+		Db: &db,
+	}
+	developerController developer.DeveloperController = developer.DeveloperController{
 		Db: &db,
 	}
 )
@@ -29,8 +32,6 @@ func (s Serve) Execute() error {
 		return err
 	}
 
-	fmt.Println(db.Ping())
-
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(
@@ -44,6 +45,8 @@ func (s Serve) Execute() error {
 	})
 
 	r.Get("/api/games", gameController.Index)
+
+	r.Get("/api/developers", developerController.Index)
 
 	return http.ListenAndServe(":80", r)
 }

@@ -26,18 +26,18 @@ type Game struct {
 }
 
 func Insert(db *sql.DB, game ...*Game) error {
+	var query string = `
+        INSERT INTO games (
+            title, description, thumbnail
+        ) VALUES (
+            $1, $2, $3
+        );
+    `
+
 	for _, g := range game {
 		if err := validateFields(*g); err != nil {
 			return err
 		}
-
-		var query string = `
-            INSERT INTO games (
-                title, description, thumbnail
-            ) VALUES (
-                $1, $2, $3
-            );
-        `
 
 		if _, err := db.Exec(query, g.Title, g.Description, g.Thumbnail); err != nil {
 			return err
@@ -118,7 +118,7 @@ func validateFields(game Game) error {
 		return fmt.Errorf(ErrEmptyField.Error(), "Thumbnail")
 	}
 
-	if len(game.Thumbnail) > 255 {
+	if len(game.Thumbnail) > 355 {
 		return fmt.Errorf(ErrFieldOverload.Error(), 255)
 	}
 

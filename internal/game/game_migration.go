@@ -24,7 +24,7 @@ func (m GameMigrator) Migrate(db *sql.DB) error {
 func (m GameMigrator) Clear(db *sql.DB) error {
 	var query string = `
         DROP TABLE IF EXISTS games;
-        `
+    `
 
 	if _, err := db.Exec(query); err != nil {
 		return err

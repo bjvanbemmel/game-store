@@ -1,4 +1,4 @@
-package game
+package developer
 
 import (
 	"testing"
@@ -6,7 +6,7 @@ import (
 	"github.com/bjvanbemmel/game-store/internal"
 )
 
-func TestGameSeederSuccessfullySeeds(t *testing.T) {
+func TestDeveloperMigratorSuccessfullyMigrates(t *testing.T) {
 	var db internal.Db = internal.Db{}
 	if err := db.Environment("test"); err != nil {
 		t.Fatal(err)
@@ -16,14 +16,13 @@ func TestGameSeederSuccessfullySeeds(t *testing.T) {
 	}
 	defer db.Close()
 
-	var migrator GameMigrator = GameMigrator{}
-	var seeder GameSeeder = GameSeeder{}
+	var migrator DeveloperMigrator = DeveloperMigrator{}
 
-	if err := migrator.Migrate(db.DB); err != nil {
+	if err := migrator.Clear(db.DB); err != nil {
 		t.Fatal(err)
 	}
 
-	if err := seeder.Seed(db.DB); err != nil {
+	if err := migrator.Migrate(db.DB); err != nil {
 		t.Fatal(err)
 	}
 }

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/bjvanbemmel/game-store/internal/developer"
 	"github.com/bjvanbemmel/game-store/internal/game"
 )
 
@@ -15,8 +16,15 @@ func (s Seed) Execute() error {
 		return err
 	}
 
-	var seeder game.GameSeeder = game.GameSeeder{}
-	err := seeder.Seed(db.DB)
+	var gameSeeder game.GameSeeder = game.GameSeeder{}
+	if err := gameSeeder.Seed(db.DB); err != nil {
+		return err
+	}
 
-	return err
+	var devSeeder developer.DeveloperSeeder = developer.DeveloperSeeder{}
+	if err := devSeeder.Seed(db.DB); err != nil {
+		return err
+	}
+
+	return nil
 }

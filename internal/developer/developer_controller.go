@@ -1,4 +1,4 @@
-package game
+package developer
 
 import (
 	"encoding/json"
@@ -7,12 +7,12 @@ import (
 	"github.com/bjvanbemmel/game-store/internal"
 )
 
-type GameController struct {
+type DeveloperController struct {
 	Db *internal.Db
 }
 
-func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
-	var games []*Game = []*Game{}
+func (c DeveloperController) Index(w http.ResponseWriter, r *http.Request) {
+	var devs []*Developer = []*Developer{}
 
 	w.Header().Add("Content-Type", "application/json")
 
@@ -21,12 +21,12 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 	}
 
-	if err := Paginate(c.Db.DB, 1, 10, &games); err != nil {
+	if err := Paginate(c.Db.DB, 1, 10, &devs); err != nil {
 		w.WriteHeader(500)
 		w.Write([]byte(err.Error()))
 	}
 
-	raw, err := json.Marshal(games)
+	raw, err := json.Marshal(devs)
 	if err != nil {
 		w.WriteHeader(500)
 		w.Write([]byte(err.Error()))

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/bjvanbemmel/game-store/internal/developer"
 	"github.com/bjvanbemmel/game-store/internal/game"
 )
 
@@ -15,12 +16,21 @@ func (m Migrate) Execute() error {
 		return err
 	}
 
-	var migrator game.GameMigrator = game.GameMigrator{}
-	if err := migrator.Clear(db.DB); err != nil {
+	var gameMigrator game.GameMigrator = game.GameMigrator{}
+	if err := gameMigrator.Clear(db.DB); err != nil {
+		return err
+	}
+	if err := gameMigrator.Migrate(db.DB); err != nil {
 		return err
 	}
 
-	err := migrator.Migrate(db.DB)
+	var devMigrator developer.DeveloperMigrator = developer.DeveloperMigrator{}
+	if err := devMigrator.Clear(db.DB); err != nil {
+		return err
+	}
+	if err := devMigrator.Migrate(db.DB); err != nil {
+		return err
+	}
 
-	return err
+	return nil
 }

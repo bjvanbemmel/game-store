@@ -1,29 +1,28 @@
 package game
 
 import (
-	"database/sql"
 	"testing"
 
-	_ "github.com/mattn/go-sqlite3"
+	"github.com/bjvanbemmel/game-store/internal"
 )
 
 func TestGameMigratorSuccessfullyMigrates(t *testing.T) {
-	var dsn string = "file:unit_tests.db?cache=shared&mode=memory"
-	db, err := sql.Open("sqlite3", dsn)
-	if err != nil {
+	var db internal.Db = internal.Db{}
+	if err := db.Environment("test"); err != nil {
+		t.Fatal(err)
+	}
+	if err := db.Connect(); err != nil {
 		t.Fatal(err)
 	}
 	defer db.Close()
 
-	db.SetMaxOpenConns(1)
-
 	var migrator GameMigrator = GameMigrator{}
 
-	if err := migrator.Clear(db); err != nil {
+	if err := migrator.Clear(db.DB); err != nil {
 		t.Fatal(err)
 	}
 
-	if err := migrator.Migrate(db); err != nil {
+	if err := migrator.Migrate(db.DB); err != nil {
 		t.Fatal(err)
 	}
 }
