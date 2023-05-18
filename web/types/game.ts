@@ -1,7 +1,7 @@
 export default interface Game {
-    id: number,
-    title: string,
-    developer: string,
-    description?: string,
-    thumbnail?: string,
+    ID: number,
+    Title: string,
+    Developer: string,
+    Description: string,
+    Thumbnail: string,
 }

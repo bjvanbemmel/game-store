@@ -14,6 +14,8 @@ type GameController struct {
 func (g GameController) Index(w http.ResponseWriter, r *http.Request) {
 	var games []*Game = []*Game{}
 
+	w.Header().Add("Content-Type", "application/json")
+
 	err := g.Db.Ping()
 	if err != nil {
 		w.WriteHeader(500)

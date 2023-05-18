@@ -10,7 +10,7 @@ func (m GameMigrator) Migrate(db *sql.DB) error {
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
             description VARCHAR(255) NOT NULL,
-            thumbnail VARCHAR(255) NOT NULL
+            thumbnail VARCHAR(355) NOT NULL
         );
     `
 
