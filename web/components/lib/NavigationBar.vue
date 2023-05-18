@@ -20,6 +20,14 @@
                 Most loved
             </NavigationLink>
             <NavigationLink
+                route="upcoming"
+            >
+                <CalendarIcon
+                    class="h-6"
+                />
+                Upcoming titles
+            </NavigationLink>
+            <NavigationLink
                 route="random"
             >
                 <BeakerIcon
@@ -32,5 +40,5 @@
 </template>
 
 <script setup lang="ts">
-import { ChartBarIcon, HeartIcon, BeakerIcon, } from '@heroicons/vue/24/outline'
+import { ChartBarIcon, HeartIcon, BeakerIcon, CalendarIcon, } from '@heroicons/vue/24/outline'
 </script>

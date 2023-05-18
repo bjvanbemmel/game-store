@@ -6,6 +6,7 @@
             <SkeletonNavigationLink />
             <SkeletonNavigationLink />
             <SkeletonNavigationLink />
+            <SkeletonNavigationLink />
         </ul>
     </nav>
 </template>
