@@ -12,8 +12,9 @@ import Game from '~/types/game'
 
 const games: Ref<Array<Game> | null> = ref(null)
 
-await useFetch<Array<Game>>('http://localhost:81/api/games', {
+await useFetch<Array<Game>>('http://192.168.2.15:81/api/games', {
     onResponse({ response }) {
+        if (response.status !== 200) return
         games.value = response._data
     },
     onResponseError({ response }) {

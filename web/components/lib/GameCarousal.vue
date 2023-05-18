@@ -16,13 +16,23 @@
             v-for="game, i in props.games"
             :key="i"
             :game="game"
+            :active-id="data.activeId"
+            @active="(e: number) => data.activeId = e"
         />
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, reactive } from 'vue'
 import Game from '~/types/game'
+
+interface Data {
+    activeId: number,
+}
+
+const data: Data = reactive({
+    activeId: -1,
+})
 
 const props = defineProps<{
     games: Array<Game> | null,
