@@ -4,7 +4,7 @@
         <ul class="flex flex-col gap-3 text-zinc-200 p-3 md:p-8 w-full">
             <NavigationSearch class="hidden md:flex" />
             <NavigationLink
-                route="."
+                route=""
                 class="h-[3.75rem] flex md:hidden justify-start md:justify-center items-center"
             >
                 <MagnifyingGlassIcon

@@ -3,20 +3,20 @@ package cmd
 import (
 	"net/http"
 
-	"github.com/bjvanbemmel/game-store/internal"
+	"github.com/bjvanbemmel/game-store/internal/database"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 )
 
 var (
-	db internal.Db = internal.Db{}
+	db database.Db = database.Db{}
 )
 
 type Serve struct{}
 
 func (s Serve) Execute() error {
-	if err := db.Connect(); err != nil {
+	if err := database.Context.Connect(); err != nil {
 		return err
 	}
 
