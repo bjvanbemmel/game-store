@@ -17,21 +17,6 @@ services:
       - postgres-prod
       - postgres-test
     restart: always
-  gokiburi:
-    build:
-      context: .
-      dockerfile: docker/gokiburi/Dockerfile
-    ports:
-      - 127.0.0.1:${GOKIBURI_PORT:-83}:9393
-    volumes:
-      - ./:/game-store/gokiburi
-    networks:
-      - game-store
-    env_file:
-      - .env
-    depends_on:
-      - api
-    restart: always
   web:
     build:
       context: .
