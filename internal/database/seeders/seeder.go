@@ -14,5 +14,25 @@ func Seed() error {
 		return err
 	}
 
+	err = CategorySeeder{}.Seed()
+	if err != nil {
+		return err
+	}
+
+	err = GameSeeder{}.Seed()
+	if err != nil {
+		return err
+	}
+
+	err = GameDeveloperSeeder{}.Seed()
+	if err != nil {
+		return err
+	}
+
+	err = GameCategorySeeder{}.Seed()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
