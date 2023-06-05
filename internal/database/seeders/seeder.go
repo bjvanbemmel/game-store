@@ -14,7 +14,7 @@ func Seed() error {
 		return err
 	}
 
-	err = CategorySeeder{}.Seed()
+	err = GenreSeeder{}.Seed()
 	if err != nil {
 		return err
 	}
@@ -29,7 +29,7 @@ func Seed() error {
 		return err
 	}
 
-	err = GameCategorySeeder{}.Seed()
+	err = GameGenreSeeder{}.Seed()
 	if err != nil {
 		return err
 	}

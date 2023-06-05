@@ -2,18 +2,18 @@ package seeders
 
 import "github.com/bjvanbemmel/game-store/internal/database"
 
-type GameCategorySeeder struct{}
+type GameGenreSeeder struct{}
 
-func (s GameCategorySeeder) Seed() error {
+func (s GameGenreSeeder) Seed() error {
 	var queries []string = []string{`
-            INSERT INTO game_category (
-                game_id, category_id
+            INSERT INTO game_genre (
+                game_id, genre_id
             ) VALUES (
                 1, 1
             );
         `, `
-            INSERT INTO game_category (
-                game_id, category_id
+            INSERT INTO game_genre (
+                game_id, genre_id
             ) VALUES (
                 1, 1
             );

@@ -7,7 +7,7 @@ type Game struct {
 	Title      string
 	Price      float32
 	Developers []Developer
-	Categories []Category
+	Genres     []Genre
 }
 
 func (g *Game) FullFetch() (*Game, error) {

@@ -14,7 +14,7 @@ func Migrate() error {
 		return err
 	}
 
-	err = AddCategoriesTable{}.Migrate()
+	err = AddGenreTable{}.Migrate()
 	if err != nil {
 		return err
 	}
@@ -29,7 +29,7 @@ func Migrate() error {
 		return err
 	}
 
-	err = AddGameCategoryPivotTable{}.Migrate()
+	err = AddGameGenrePivotTable{}.Migrate()
 	if err != nil {
 		return err
 	}

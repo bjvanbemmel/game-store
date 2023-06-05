@@ -1,6 +1,6 @@
 package dto
 
-type Category struct {
+type Genre struct {
 	Id   int
 	Name string
 }

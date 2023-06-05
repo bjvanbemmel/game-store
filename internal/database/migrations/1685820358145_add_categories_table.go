@@ -4,11 +4,11 @@ import (
 	"github.com/bjvanbemmel/game-store/internal/database"
 )
 
-type AddCategoriesTable struct{}
+type AddGenreTable struct{}
 
-func (m AddCategoriesTable) Migrate() error {
+func (m AddGenreTable) Migrate() error {
 	_, err := database.Context.Exec(`
-        CREATE TABLE IF NOT EXISTS categories (
+        CREATE TABLE IF NOT EXISTS genres (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL
         );

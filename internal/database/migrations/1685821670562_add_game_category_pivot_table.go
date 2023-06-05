@@ -2,13 +2,13 @@ package migrations
 
 import "github.com/bjvanbemmel/game-store/internal/database"
 
-type AddGameCategoryPivotTable struct{}
+type AddGameGenrePivotTable struct{}
 
-func (m AddGameCategoryPivotTable) Migrate() error {
+func (m AddGameGenrePivotTable) Migrate() error {
 	_, err := database.Context.Exec(`
-        CREATE TABLE IF NOT EXISTS game_category (
+        CREATE TABLE IF NOT EXISTS game_genre (
             game_id INTEGER REFERENCES games(id),
-            category_id INTEGER REFERENCES categories(id)
+            genre_id INTEGER REFERENCES genres(id)
         );
     `)
 
