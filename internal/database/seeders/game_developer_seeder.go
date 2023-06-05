@@ -15,7 +15,31 @@ func (s GameDeveloperSeeder) Seed() error {
             INSERT INTO game_developer (
                 game_id, developer_id
             ) VALUES (
-                1, 2
+                2, 2
+            );
+        `, `
+            INSERT INTO game_developer (
+                game_id, developer_id
+            ) VALUES (
+                2, 3
+            );
+        `, `
+            INSERT INTO game_developer (
+                game_id, developer_id
+            ) VALUES (
+                3, 4
+            );
+        `, `
+            INSERT INTO game_developer (
+                game_id, developer_id
+            ) VALUES (
+                4, 5
+            );
+        `, `
+            INSERT INTO game_developer (
+                game_id, developer_id
+            ) VALUES (
+                4, 1
             );
         `,
 	}

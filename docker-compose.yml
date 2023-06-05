@@ -41,7 +41,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-game-store}
       POSTGRES_DB: ${DB_DATABASE:-game-store}
     volumes:
-      - ./:/game-store/postgres
+      - postgres:/game-store/postgres
     networks:
       - game-store
     env_file:
@@ -50,3 +50,6 @@ services:
 
 networks:
   game-store:
+
+volumes:
+  postgres:

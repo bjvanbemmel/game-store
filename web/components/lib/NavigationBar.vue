@@ -22,7 +22,7 @@
                 <span class="hidden md:block">Most popular</span>
             </NavigationLink>
             <NavigationLink
-                route="/highest-rated"
+                route="/most-loved"
                 class="h-[3.75rem] flex items-center"
             >
                 <HeartIcon
@@ -31,7 +31,7 @@
                 <span class="hidden md:block">Most loved</span>
             </NavigationLink>
             <NavigationLink
-                route="/upcoming"
+                route="/upcoming-titles"
                 class="h-[3.75rem] flex items-center"
             >
                 <CalendarIcon

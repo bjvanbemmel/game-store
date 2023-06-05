@@ -9,13 +9,67 @@ func (s GameGenreSeeder) Seed() error {
             INSERT INTO game_genre (
                 game_id, genre_id
             ) VALUES (
-                1, 1
+                1, 6
             );
         `, `
             INSERT INTO game_genre (
                 game_id, genre_id
             ) VALUES (
-                1, 1
+                1, 5
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                1, 2
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                2, 5
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                2, 1
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                2, 2
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                3, 7
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                3, 8
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                4, 5
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                4, 1
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                4, 9
             );
         `,
 	}

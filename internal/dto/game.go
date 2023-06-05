@@ -1,17 +1,25 @@
 package dto
 
-import "github.com/bjvanbemmel/game-store/internal/database"
+import (
+	"github.com/bjvanbemmel/game-store/internal/database"
+)
 
 type Game struct {
-	Id         int
-	Title      string
-	Price      float32
-	Developers []Developer
-	Genres     []Genre
+	Id          int         `json:"id"`
+	Title       string      `json:"title"`
+	Price       float32     `json:"price"`
+	Thumbnail   string      `json:"thumbnail"`
+	Description string      `json:"description"`
+	Developers  []Developer `json:"developers"`
+	Genres      []Genre     `json:"genres"`
 }
 
 func (g *Game) FullFetch() (*Game, error) {
 	if _, err := g.FetchDevelopers(); err != nil {
+		return nil, err
+	}
+
+	if _, err := g.FetchGenres(); err != nil {
 		return nil, err
 	}
 
@@ -39,6 +47,32 @@ func (g *Game) FetchDevelopers() (*Game, error) {
 		}
 
 		g.Developers = append(g.Developers, dev)
+	}
+
+	return g, nil
+}
+
+func (g *Game) FetchGenres() (*Game, error) {
+	rows, err := database.Context.Query(`
+        SELECT ge.id, ge.name FROM game_genre gg
+        JOIN genres ge
+        ON gg.genre_id = ge.id
+        WHERE gg.game_id = $1;
+    `, g.Id)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var gen Genre
+
+		if err := rows.Scan(&gen.Id, &gen.Name); err != nil {
+			return nil, err
+		}
+
+		g.Genres = append(g.Genres, gen)
 	}
 
 	return g, nil

@@ -11,7 +11,9 @@ func (m AddGamesTable) Migrate() error {
         CREATE TABLE IF NOT EXISTS games (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
-            price NUMERIC
+            price NUMERIC NOT NULL DEFAULT 0.00,
+            thumbnail VARCHAR(355) NOT NULL,
+            description VARCHAR(3200) NOT NULL
         );
     `)
 

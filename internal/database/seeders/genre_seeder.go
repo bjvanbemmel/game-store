@@ -17,6 +17,48 @@ func (s GenreSeeder) Seed() error {
             ) VALUES (
                 'Adventure'
             );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'FPS'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'RPG'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'JRPG'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'MMORPG'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Racing'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Simulation'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Story Rich'
+            );
         `,
 	}
 

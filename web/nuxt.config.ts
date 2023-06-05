@@ -5,6 +5,11 @@ export default defineNuxtConfig({
             title: 'Game store',
         },
     },
+    runtimeConfig: {
+        public: {
+            baseURL: 'http://localhost:81',
+        },
+    },
     components: [
         '~/components',
         '~/components/lib',

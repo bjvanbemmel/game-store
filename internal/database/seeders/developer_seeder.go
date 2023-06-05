@@ -17,6 +17,24 @@ func (s DeveloperSeeder) Seed() error {
             ) VALUES (
                 'Ryu Ga Gotoku'
             );
+        `, `
+            INSERT INTO developers (
+                name
+            ) VALUES (
+                'Sega'
+            );
+        `, `
+            INSERT INTO developers (
+                name
+            ) VALUES (
+                'Kunos Simulazioni'
+            );
+        `, `
+            INSERT INTO developers (
+                name
+            ) VALUES (
+                'Platinum Games'
+            );
         `,
 	}
 

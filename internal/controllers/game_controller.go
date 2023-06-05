@@ -18,7 +18,7 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	rows, err := database.Context.Query(`
         SELECT * FROM games g LIMIT 15;
     `)
-	defer rows.Close()
+	// defer rows.Close()
 
 	if err != nil {
 		c.ResponseError(w, err)
@@ -28,12 +28,12 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var game dto.Game
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price); err != nil {
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
 			c.ResponseError(w, err)
 			return
 		}
 
-		if _, err := game.FetchDevelopers(); err != nil {
+		if _, err := game.FullFetch(); err != nil {
 			c.ResponseError(w, err)
 			return
 		}
