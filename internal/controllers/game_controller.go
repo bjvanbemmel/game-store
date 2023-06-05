@@ -33,11 +33,10 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		c.Response(w, game.Id)
-		// if _, err := game.FetchDevelopers(); err != nil {
-		//     c.ResponseError(w, err)
-		//     return
-		// }
+		if _, err := game.FetchDevelopers(); err != nil {
+			c.ResponseError(w, err)
+			return
+		}
 
 		games = append(games, game)
 	}

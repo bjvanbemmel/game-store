@@ -10,10 +10,18 @@ type Game struct {
 	Categories []Category
 }
 
+func (g *Game) FullFetch() (*Game, error) {
+	if _, err := g.FetchDevelopers(); err != nil {
+		return nil, err
+	}
+
+	return g, nil
+}
+
 func (g *Game) FetchDevelopers() (*Game, error) {
 	rows, err := database.Context.Query(`
-        SELECT * FROM game_developer gd
-        JOIN developer d
+        SELECT d.id, d.name FROM game_developer gd
+        JOIN developers d
         ON gd.developer_id = d.id
         WHERE gd.game_id = $1;
     `, g.Id)
