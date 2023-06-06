@@ -1,6 +1,11 @@
 package seeders
 
-import "github.com/bjvanbemmel/game-store/internal/database"
+import (
+	"errors"
+	"fmt"
+
+	"github.com/bjvanbemmel/game-store/internal/database"
+)
 
 type GenreSeeder struct{}
 
@@ -59,12 +64,42 @@ func (s GenreSeeder) Seed() error {
             ) VALUES (
                 'Story Rich'
             );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Survival'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Online Co-Op'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Action RPG'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Cyberpunk'
+            );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Horror'
+            );
         `,
 	}
 
 	for _, q := range queries {
 		if _, err := database.Context.Exec(q); err != nil {
-			return err
+			return errors.New(fmt.Sprintln(err.Error(), q))
 		}
 	}
 

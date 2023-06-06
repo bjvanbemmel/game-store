@@ -18,7 +18,7 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	rows, err := database.Context.Query(`
         SELECT * FROM games g LIMIT 15;
     `)
-	// defer rows.Close()
+	defer rows.Close()
 
 	if err != nil {
 		c.ResponseError(w, err)

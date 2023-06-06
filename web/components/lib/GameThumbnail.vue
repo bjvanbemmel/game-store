@@ -28,7 +28,7 @@
                     :to="`/developer/${developer.id}`"
                     :title="developer.name"
                     @click.stop
-                    class="h-5 z-20 w-max truncate transition-colors duration-100 text-sm text-zinc-500 group-hover:text-zinc-400 hover:underline"
+                    class="h-5 z-20 truncate transition-colors duration-100 text-sm text-zinc-500 group-hover:text-zinc-400 hover:underline"
                 >
                     {{ developer.name }}
                 </NuxtLink>
