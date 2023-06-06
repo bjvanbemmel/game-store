@@ -6,6 +6,7 @@ import (
 	"github.com/bjvanbemmel/game-store/internal"
 	"github.com/bjvanbemmel/game-store/internal/database"
 	"github.com/bjvanbemmel/game-store/internal/dto"
+	"github.com/go-chi/chi/v5"
 )
 
 type GameController struct {
@@ -16,7 +17,7 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	var games []dto.Game
 
 	rows, err := database.Context.Query(`
-        SELECT * FROM games g LIMIT 15;
+        SELECT * FROM games LIMIT 15;
     `)
 	defer rows.Close()
 
@@ -44,6 +45,55 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	if err = rows.Err(); err != nil {
 		c.ResponseError(w, err)
 		return
+	}
+
+	c.Response(w, games)
+}
+
+func (c GameController) Show(w http.ResponseWriter, r *http.Request) {
+	if chi.URLParam(r, "id") == "" {
+		c.ResponseError(w, internal.ErrEmptyParameter)
+	}
+
+	row := database.Context.QueryRow(`
+        SELECT * FROM games WHERE id = $1
+    `, chi.URLParam(r, "id"))
+
+	var game dto.Game
+	if err := row.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+		c.ResponseError(w, err)
+	}
+
+	if _, err := game.FullFetch(); err != nil {
+		c.ResponseError(w, err)
+	}
+
+	c.Response(w, game)
+}
+
+func (c GameController) Similar(w http.ResponseWriter, r *http.Request) {
+	var games []dto.Game
+	var curGame dto.Game
+
+	if chi.URLParam(r, "id") == "" {
+		c.ResponseError(w, internal.ErrEmptyParameter)
+	}
+
+	row := database.Context.QueryRow(`
+        SELECT * FROM games WHERE id = $1
+    `, chi.URLParam(r, "id"))
+
+	if err := row.Scan(&curGame.Id, &curGame.Title, &curGame.Price, &curGame.Thumbnail, &curGame.Description); err != nil {
+		c.ResponseError(w, err)
+	}
+
+	if _, err := curGame.FetchGenres(); err != nil {
+		c.ResponseError(w, err)
+	}
+
+	games, err := curGame.Similar()
+	if err != nil {
+		c.ResponseError(w, err)
 	}
 
 	c.Response(w, games)

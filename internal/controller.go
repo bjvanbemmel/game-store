@@ -2,7 +2,12 @@ package internal
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
+)
+
+var (
+	ErrEmptyParameter error = errors.New("Empty parameter has been given.")
 )
 
 type Data interface {
@@ -19,6 +24,17 @@ func (c Controller) ResponseError(w http.ResponseWriter, err error) {
 
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(500)
+	w.Write(raw)
+}
+
+func (c Controller) ResponseErrorCode(w http.ResponseWriter, code int, err error) {
+	var response map[string]string = map[string]string{
+		"message": err.Error(),
+	}
+	raw, _ := json.Marshal(response)
+
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(code)
 	w.Write(raw)
 }
 

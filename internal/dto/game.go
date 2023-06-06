@@ -77,3 +77,42 @@ func (g *Game) FetchGenres() (*Game, error) {
 
 	return g, nil
 }
+
+func (g *Game) Similar() ([]Game, error) {
+	var games []Game
+
+	rows, err := database.Context.Query(`
+        SELECT g.* FROM games g
+        JOIN game_genre gg
+        ON gg.game_id = g.id
+        JOIN genres ge
+        ON gg.genre_id = ge.id
+        WHERE gg.genre_id IN (
+	        SELECT genre_id FROM game_genre
+            WHERE game_id = $1
+        )
+        AND gg.game_id != $1
+        GROUP BY g.id;
+    `, g.Id)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var game Game
+
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+			return nil, err
+		}
+
+		if _, err := game.FullFetch(); err != nil {
+			return nil, err
+		}
+
+		games = append(games, game)
+	}
+
+	return games, nil
+}

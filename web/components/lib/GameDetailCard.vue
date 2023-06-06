@@ -1,0 +1,86 @@
+<template>
+    <DefaultContainer class="flex flex-col gap-4">
+        <!-- Cover -->
+        <img
+            v-if="game?.thumbnail"
+            class="h-96 w-64 rounded-md object-cover outline-none border-none"
+            :src="game?.thumbnail"
+        />
+        <SkeletonContainer
+            v-else
+            class="h-96 w-64"
+        />
+
+        <!-- Title -->
+        <h1
+            v-if="game?.title"
+            class="text-lg font-semibold"
+        >
+            {{ game?.title }}
+        </h1>
+        <SkeletonContainer
+            v-else
+            class="h-9"
+        />
+
+        <!-- Description -->
+        <p
+            v-if="game?.description"
+            class="w-64 text-sm text-zinc-200"
+        >
+            {{ game.description }}
+        </p>
+
+        <!-- Developers -->
+        <div
+            v-if="game?.developers"
+            class="flex flex-col gap-1"
+        >
+            <NuxtLink
+                v-for="dev, i in game.developers"
+                :key="i"
+                class="text-sm text-zinc-400 hover:underline"
+                :to="`/developer/${dev.id}`"
+            >
+                {{ dev.name }}
+            </NuxtLink>
+        </div>
+        <SkeletonContainer
+            v-else
+            class="h-6 w-64"
+        />
+
+        <!-- Genres -->
+        <div
+            v-if="game?.genres"
+            class="flex flex-wrap gap-2 w-64"
+        >
+            <NuxtLink
+                v-for="genre, i in game.genres"
+                :key="i"
+                class="text-xs py-1 px-2 bg-zinc-900 border-[0.025rem] border-zinc-500 rounded-md hover:bg-zinc-700"
+                :to="`/genre/${genre.id}`"
+            >
+                {{ genre.name }}
+            </NuxtLink>
+        </div>
+        <div
+            v-else
+            class="flex flex-wrap gap-2 w-64"
+        >
+            <SkeletonContainer class="h-6 w-14" />
+            <SkeletonContainer class="h-6 w-14" />
+            <SkeletonContainer class="h-6 w-14" />
+            <SkeletonContainer class="h-6 w-14" />
+        </div>
+    </DefaultContainer>
+</template>
+
+<script setup lang="ts">
+import Game from '~/types/game'
+import { defineProps } from 'vue'
+
+defineProps<{
+    game: Game | null
+}>()
+</script>

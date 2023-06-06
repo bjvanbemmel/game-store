@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits, PropType, computed } from 'vue'
-import Game from 'types/game'
+import Game from '~/types/game'
 
 const props = defineProps({
     game: {
