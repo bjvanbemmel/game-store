@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col gap-4">
         <section class="flex gap-4">
-            <DefaultContainer class="flex flex-col gap-4 w-full">
+            <DefaultContainer class="flex flex-col items-center gap-4 w-full">
+                <SkeletonImageCarousal />
             </DefaultContainer>
             <GameDetailCard
                 :game="game"
