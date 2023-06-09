@@ -39,19 +39,10 @@
                 />
                 <span class="hidden md:block">Upcoming titles</span>
             </NavigationLink>
-            <NavigationLink
-                route="/random"
-                class="h-[3.75rem] flex items-center"
-            >
-                <BeakerIcon
-                    class="h-6"
-                />
-                <span class="hidden md:block">Try your luck</span>
-            </NavigationLink>
         </ul>
     </nav>
 </template>
 
 <script setup lang="ts">
-import { ChartBarIcon, HeartIcon, BeakerIcon, CalendarIcon, MagnifyingGlassIcon} from '@heroicons/vue/24/outline'
+import { ChartBarIcon, HeartIcon, CalendarIcon, MagnifyingGlassIcon} from '@heroicons/vue/24/outline'
 </script>
