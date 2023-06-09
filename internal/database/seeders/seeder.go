@@ -34,5 +34,10 @@ func Seed() error {
 		return err
 	}
 
+	err = MediaSeeder{}.Seed()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

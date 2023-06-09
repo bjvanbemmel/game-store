@@ -34,5 +34,10 @@ func Migrate() error {
 		return err
 	}
 
+	err = AddMediaTable{}.Migrate()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

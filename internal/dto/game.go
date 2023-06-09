@@ -10,6 +10,7 @@ type Game struct {
 	Price       float32     `json:"price"`
 	Thumbnail   string      `json:"thumbnail"`
 	Description string      `json:"description"`
+	Media       []Media     `json:"media"`
 	Developers  []Developer `json:"developers"`
 	Genres      []Genre     `json:"genres"`
 }
@@ -20,6 +21,10 @@ func (g *Game) FullFetch() (*Game, error) {
 	}
 
 	if _, err := g.FetchGenres(); err != nil {
+		return nil, err
+	}
+
+	if _, err := g.FetchMedia(); err != nil {
 		return nil, err
 	}
 
@@ -73,6 +78,32 @@ func (g *Game) FetchGenres() (*Game, error) {
 		}
 
 		g.Genres = append(g.Genres, gen)
+	}
+
+	return g, nil
+}
+
+func (g *Game) FetchMedia() (*Game, error) {
+	rows, err := database.Context.Query(`
+        SELECT m.id, m.type, m.uri FROM media m
+        JOIN games g
+        ON g.id = m.game_id
+        WHERE m.game_id = $1;
+    `, g.Id)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var med Media
+
+		if err := rows.Scan(&med.Id, &med.Type, &med.Uri); err != nil {
+			return nil, err
+		}
+
+		g.Media = append(g.Media, med)
 	}
 
 	return g, nil

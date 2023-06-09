@@ -35,7 +35,7 @@
             :key="i"
             :src="getThumbnailIfYouTube(md)"
             @click.stop="data.activeMedia = md"
-            class="rounded-md h-32 w-52 cursor-pointer"
+            class="rounded-md h-32 w-52 cursor-pointer object-cover"
         />
     </div>
 </template>
