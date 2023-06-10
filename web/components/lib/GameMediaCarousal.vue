@@ -4,10 +4,26 @@
             :active="data.modal"
             @toggle="(v) => data.modal = v"
         >
-            <GameMedia
-                :media="data.activeMedia"
-                class="object-none w-auto max-w-7xl"
-            />
+            <div class="relative group">
+                <GameMedia
+                    :media="data.activeMedia"
+                    class="object-none w-auto max-w-7xl"
+                />
+                <div class="hidden group-hover:flex absolute h-full w-full top-0 items-center justify-between p-4">
+                    <button
+                        @click.stop="navigateMedia(Direction.Left)"
+                        class="h-12 w-12"
+                    >
+                        <ChevronLeftIcon class="h-12 w-12 bg-zinc-700 shadow-md rounded-full p-3 hover:bg-zinc-600 transition-colors duration-75" />
+                    </button>
+                    <button
+                        @click.stop="navigateMedia(Direction.Right)"
+                        class="h-12 w-12"
+                    >
+                        <ChevronRightIcon class="h-12 w-12 bg-zinc-700 shadow-md rounded-full p-3 hover:bg-zinc-600 transition-colors duration-75" />
+                    </button>
+                </div>
+            </div>
             <p class="w-full text-center">{{ activeMediaId }} / {{ data.iterableMedia.length }}</p>
             <DefaultButton
                 @click.stop="data.modal = !data.modal"
@@ -36,13 +52,15 @@
             :src="getThumbnailIfYouTube(md)"
             @click.stop="data.activeMedia = md"
             class="rounded-md h-32 w-52 cursor-pointer object-cover"
+            ref="activeMediaElement"
+            :class="md.uri === data.activeMedia.uri ? 'border-2 border-white' : ''"
         />
     </div>
 </template>
 
 <script setup lang="ts">
-import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
-import { reactive, computed, defineProps, watch } from 'vue'
+import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
+import { reactive, computed, defineProps, watch, ref } from 'vue'
 import Media from '~/types/media'
 import MediaType from '~/types/media_type'
 
@@ -59,6 +77,8 @@ const data = reactive<{
     iterableMedia: props.media.filter(x => x.type === MediaType.Image),
     modal: false,
 })
+
+const activeMediaElement: Ref<Array<HTMLImageElement> | null> = ref(null)
 
 function getThumbnailIfYouTube(media: Media): string
 {
@@ -114,6 +134,10 @@ function navigateMedia(direction: Direction)
             data.activeMedia = props.media[activeMediaId.value + 1]
             break
     }
+
+    activeMediaElement.value?.[activeMediaId.value].scrollIntoView({
+        behavior: 'smooth',
+    })
 }
 
 const activeMediaId: ComputedRef<number> = computed(() => {
@@ -126,12 +150,37 @@ const activeMediaId: ComputedRef<number> = computed(() => {
     return 0
 })
 
-watch(data, () => {
-    if (data.modal) {
-        window.addEventListener('keydown', navigateUsingKeys)
-        return
-    }
+let scrollThroughCarousal: NodeJS.Timer
 
-    window.removeEventListener('keydown', navigateUsingKeys)
-})
+watch(
+    () => data.modal,
+    (newVal: boolean) => {
+        if (newVal) {
+            clearInterval(scrollThroughCarousal)
+            window.addEventListener('keydown', navigateUsingKeys)
+            return
+        }
+
+        scrollThroughCarousal = setInterval(() => {
+            navigateMedia(Direction.Right)
+        }, 5000)
+        window.removeEventListener('keydown', navigateUsingKeys)
+    },
+)
+
+watch(
+    () => data.activeMedia,
+    (newVal: Media, oldVal: Media | undefined) => {
+        if (newVal.type === oldVal?.type) return
+
+        if (newVal.type === MediaType.YouTube) {
+            clearInterval(scrollThroughCarousal)
+            return
+        }
+
+        scrollThroughCarousal = setInterval(() => {
+            navigateMedia(Direction.Right)
+        }, 5000)
+    }, { immediate: true }
+)
 </script>
