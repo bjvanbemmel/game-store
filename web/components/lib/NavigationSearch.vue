@@ -1,55 +1,63 @@
 <template>
-    <Transition>
-        <div
-            v-if="active"
-            class="absolute top-0 left-0 w-screen h-screen bg-black/40 z-40"
-            @click.stop="active = false"
-        ></div>
-    </Transition>
-    <form
-        class="group flex gap-4 flex-col relative mb-8"
-        :class="active ? 'z-50' : ''"
-        @submit="searchIfNotEmpty(keyword)"
-    >
-        <div
-            class="flex w-full" 
-        >
-            <input
-                class="
-                rounded-l-md
-                px-4
-                py-2
-                shadow-md
-                w-5/6
-                bg-zinc-600
-                text-zinc-50
-                focus:outline-none
-                "
-                type="text"
-                placeholder="Search..."
-                v-model="keyword"
-                @click.stop="active = true"
-            />
-            <button
-                class="bg-zinc-700 text-zinc-300 rounded-r-md w-1/6"
-            >
-                <MagnifyingGlassIcon
-                    class="h-5 mx-auto"
-                />
-            </button>
-        </div>
-
-        <Transition
-            name="games"
-        >
-            <NavigationSearchResults
-                v-if="active && keyword.length >= 2"
-                @navigate="active = false"
-                @browse="(searchIfNotEmpty(keyword)); active = false"
-                :games="games"
-            />
+    <div class="hidden md:flex">
+        <Transition>
+            <div
+                v-if="active"
+                class="absolute top-0 left-0 w-screen h-screen bg-black/40 z-40"
+                @click.stop="active = false"
+            ></div>
         </Transition>
-    </form>
+        <form
+            id="1"
+            class="group w-full flex gap-4 flex-col relative mb-8"
+            :class="active ? 'z-50' : ''"
+            @keydown.enter.stop="searchIfNotEmpty(keyword)"
+            @keydown.escape.stop="active = false"
+            @submit.stop.prevent
+        >
+            <div
+                class="flex w-full" 
+            >
+                <input
+                    class="
+                    rounded-l-md
+                    px-4
+                    py-2
+                    shadow-md
+                    w-5/6
+                    bg-zinc-600
+                    text-zinc-50
+                    focus:outline-none
+                    "
+                    type="text"
+                    placeholder="Search..."
+                    v-model="keyword"
+                    @click.stop="active = true"
+                    @focus="active = true"
+                    @input="active = true"
+                />
+                <button
+                    class="bg-zinc-700 text-zinc-300 rounded-r-md w-1/6"
+                    @click="searchIfNotEmpty(keyword)"
+                >
+                    <MagnifyingGlassIcon
+                        class="h-5 mx-auto"
+                    />
+                </button>
+            </div>
+
+            <Transition
+                name="games"
+            >
+                <NavigationSearchResults
+                    v-if="active && keyword.length >= 2"
+                    @navigate="active = false"
+                    @browse="searchIfNotEmpty(keyword)"
+                    :games="games"
+                />
+            </Transition>
+        </form>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -80,6 +88,7 @@ watch(keyword, debounce(async () => {
 function searchIfNotEmpty(keyword: string) {
     if (keyword === '') return
 
+    active.value = false
     router.push(`/search/${keyword}`)
 }
 

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative h-[19.375rem] w-48"
+        class="relative h-[21.125rem] w-48"
     >
         <NuxtLink
             @mouseenter="setActiveId(props.game.id)"
@@ -32,6 +32,18 @@
                 >
                     {{ developer.name }}
                 </NuxtLink>
+                <p
+                    class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
+                    v-if="game.price > 0"
+                >
+                    &euro; {{game.price}}
+                </p>
+                <p
+                    class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
+                    v-else
+                >
+                    FREE
+                </p>
                 <div
                     :class="props.activeId === props.game.id ? 'flex' : 'hidden'"
                     class="gap-1 mt-2 flex-wrap"

@@ -2,7 +2,7 @@
     <div class="w-20 md:w-96 flex-shrink-0 transition-all duration-100"></div>
     <nav class="w-20 md:w-96 flex-shrink-0 bg-zinc-800 h-screen fixed z-20 transition-all duration-100">
         <ul class="flex flex-col gap-3 text-zinc-200 p-3 md:p-8 w-full">
-            <NavigationSearch class="hidden md:flex" />
+            <NavigationSearch />
             <NavigationLink
                 route=""
                 class="h-[3.75rem] flex md:hidden justify-start md:justify-center items-center"

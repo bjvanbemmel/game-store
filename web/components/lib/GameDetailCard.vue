@@ -73,6 +73,38 @@
             <SkeletonContainer class="h-6 w-14" />
             <SkeletonContainer class="h-6 w-14" />
         </div>
+
+        <!-- Purchase -->
+        <div
+            v-if="game && game.price > 0"
+            class="flex w-full"
+        >
+            <DefaultButton
+                class="rounded-r-none w-3/5"
+            >
+                Add to cart
+            </DefaultButton>
+            <div
+                class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
+            >
+                &euro; {{ game?.price }}
+            </div>
+        </div>
+        <div
+            v-else
+            class="flex w-full"
+        >
+            <DefaultButton
+                class="rounded-r-none w-3/5"
+            >
+                Add to library
+            </DefaultButton>
+            <div
+                class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
+            >
+                FREE
+            </div>
+        </div>
     </DefaultContainer>
 </template>
 

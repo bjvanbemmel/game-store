@@ -57,9 +57,16 @@
                         {{ game.title }}
                     </h1>
                     <p
+                        v-if="game.price > 0"
                         class="text-xs text-zinc-400"
                     >
                         &euro; {{ game.price }}
+                    </p>
+                    <p
+                        v-else
+                        class="text-xs text-zinc-400"
+                    >
+                        FREE
                     </p>
                 </div>
             </NuxtLink>
