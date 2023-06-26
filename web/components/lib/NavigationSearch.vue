@@ -9,6 +9,7 @@
     <form
         class="group flex gap-4 flex-col relative mb-8"
         :class="active ? 'z-50' : ''"
+        @submit="searchIfNotEmpty(keyword)"
     >
         <div
             class="flex w-full" 
@@ -44,6 +45,7 @@
             <NavigationSearchResults
                 v-if="active && keyword.length >= 2"
                 @navigate="active = false"
+                @browse="(searchIfNotEmpty(keyword)); active = false"
                 :games="games"
             />
         </Transition>
@@ -59,6 +61,7 @@ import { debounce } from 'lodash';
 const active: Ref<boolean> = ref(false);
 const keyword: Ref<string> = ref("");
 const games: Ref<Array<Game>> = ref(new Array<Game>());
+const router = useRouter()
 
 watch(keyword, debounce(async () => {
     if (keyword.value.length < 2) return
@@ -73,6 +76,12 @@ watch(keyword, debounce(async () => {
         server: false,
     })
 , 100}))
+
+function searchIfNotEmpty(keyword: string) {
+    if (keyword === '') return
+
+    router.push(`/search/${keyword}`)
+}
 
 </script>
 

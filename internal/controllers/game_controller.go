@@ -99,6 +99,11 @@ func (c GameController) PartialSearch(w http.ResponseWriter, r *http.Request) {
             return
         }
 
+        if _, err := game.FullFetch(); err != nil {
+            c.ResponseError(w, err)
+            return
+        }
+
         games = append(games, game)
     }
 

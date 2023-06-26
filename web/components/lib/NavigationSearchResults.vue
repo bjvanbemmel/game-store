@@ -64,6 +64,7 @@
                 </div>
             </NuxtLink>
             <NuxtLink
+                @click="emit('browse')"
                 class="rounded-b-md underline hover:bg-zinc-700 hover:cursor-pointer transition-colors duration-75 text-blue-400 p-4"
             >
                 Browse all {{ games.length }} results
@@ -82,5 +83,6 @@ defineProps<{
 
 const emit = defineEmits<{
     (e: 'navigate'): void
+    (e: 'browse'): void
 }>()
 </script>
