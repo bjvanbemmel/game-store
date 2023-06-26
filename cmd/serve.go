@@ -35,6 +35,7 @@ func (s Serve) Execute() error {
 
 	r.Get("/api/games", controllers.GameController{}.Index)
 	r.Get("/api/games/{id}", controllers.GameController{}.Show)
+    r.Get("/api/games/search/{keyword}", controllers.GameController{}.PartialSearch)
 	r.Get("/api/games/{id}/similar", controllers.GameController{}.Similar)
 
 	return http.ListenAndServe(":80", r)
