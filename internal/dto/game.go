@@ -5,14 +5,15 @@ import (
 )
 
 type Game struct {
-	Id          int         `json:"id"`
-	Title       string      `json:"title"`
-	Price       float32     `json:"price"`
-	Thumbnail   string      `json:"thumbnail"`
-	Description string      `json:"description"`
-	Media       []Media     `json:"media"`
-	Developers  []Developer `json:"developers"`
-	Genres      []Genre     `json:"genres"`
+	Id          int           `json:"id"`
+	Title       string        `json:"title"`
+	Price       float32       `json:"price"`
+	Thumbnail   string        `json:"thumbnail"`
+	Description string        `json:"description"`
+	Media       []Media       `json:"media"`
+	Developers  []Developer   `json:"developers"`
+	Genres      []Genre       `json:"genres"`
+	PlayerCount []PlayerCount `json:"player_count"`
 }
 
 func (g *Game) FullFetch() (*Game, error) {
@@ -25,6 +26,10 @@ func (g *Game) FullFetch() (*Game, error) {
 	}
 
 	if _, err := g.FetchMedia(); err != nil {
+		return nil, err
+	}
+
+	if _, err := g.FetchPlayerCounts(); err != nil {
 		return nil, err
 	}
 
@@ -104,6 +109,32 @@ func (g *Game) FetchMedia() (*Game, error) {
 		}
 
 		g.Media = append(g.Media, med)
+	}
+
+	return g, nil
+}
+
+func (g *Game) FetchPlayerCounts() (*Game, error) {
+	rows, err := database.Context.Query(`
+        SELECT p.hour, p.count FROM game_hour_players p
+        JOIN games g
+        ON p.game_id = g.id
+        WHERE p.game_id = $1;
+    `, g.Id)
+	defer rows.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var count PlayerCount
+
+		if err := rows.Scan(&count.Hour, &count.Count); err != nil {
+			return nil, err
+		}
+
+		g.PlayerCount = append(g.PlayerCount, count)
 	}
 
 	return g, nil
