@@ -25,7 +25,7 @@ import Game from '~/types/game'
 const route = useRoute()
 const games: Ref<Array<Game> | null> = ref(null)
 
-await useApi<Array<Game>>(`/api/games/search/${route.params.keyword}`, {
+await useApi<Array<Game>>(`/api/games?keyword=${route.params.keyword}`, {
     onResponse({ response }) {
         if (response.status !== 200) return
         games.value = response._data ?? new Array<Game>()

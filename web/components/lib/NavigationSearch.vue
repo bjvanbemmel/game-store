@@ -74,7 +74,7 @@ const router = useRouter()
 watch(keyword, debounce(async () => {
     if (keyword.value.length < 2) return
 
-    await useApi<Array<Game>>(`/api/games/search/${keyword.value}`, {
+    await useApi<Array<Game>>(`/api/games?keyword=${keyword.value}`, {
         onResponse({ response }) {
             games.value = response._data ?? new Array<Game>()
         },
@@ -86,6 +86,7 @@ watch(keyword, debounce(async () => {
 , 100}))
 
 function searchIfNotEmpty(keyword: string) {
+    keyword = keyword.replaceAll('/', '')
     if (keyword === '') return
 
     active.value = false
