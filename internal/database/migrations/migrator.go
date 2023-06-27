@@ -24,6 +24,11 @@ func Migrate() error {
 		return err
 	}
 
+	err = AddGameHourPlayersTable{}.Migrate()
+	if err != nil {
+		return err
+	}
+
 	err = AddGameDeveloperPivotTable{}.Migrate()
 	if err != nil {
 		return err
