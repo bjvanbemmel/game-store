@@ -9,7 +9,8 @@ func (m AddGameHourPlayersTable) Migrate() error {
         CREATE TABLE IF NOT EXISTS game_hour_players (
             id SERIAL PRIMARY KEY,
             game_id INTEGER REFERENCES games(id),
-            count INTEGER DEFAULT 0
+            hour INTEGER NOT NULL DEFAULT 0,
+            count INTEGER NOT NULL DEFAULT 0
         )
     `)
 
