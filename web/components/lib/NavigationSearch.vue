@@ -16,7 +16,7 @@
             @submit.stop.prevent
         >
             <div
-                class="flex w-full" 
+                class="relative flex item-center w-full" 
             >
                 <input
                     class="
@@ -32,10 +32,24 @@
                     type="text"
                     placeholder="Search..."
                     v-model="keyword"
+                    ref="search"
                     @click.stop="active = true"
                     @focus="active = true"
                     @input="active = true"
                 />
+
+                <Transition>
+                    <button
+                        v-if="active"
+                        class="absolute right-16 h-full flex items-center"
+                        @click="emptyAndFocus"
+                    >
+                        <XMarkIcon
+                            class="h-6 text-zinc-400"
+                        />
+                    </button>
+                </Transition>
+
                 <button
                     class="bg-zinc-700 text-zinc-300 rounded-r-md w-1/6"
                     @click="searchIfNotEmpty(keyword)"
@@ -61,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import Game from '~/types/game'
 import { ref, watch } from 'vue'
 import { debounce } from 'lodash';
@@ -69,6 +83,7 @@ import { debounce } from 'lodash';
 const active: Ref<boolean> = ref(false);
 const keyword: Ref<string> = ref("");
 const games: Ref<Array<Game>> = ref(new Array<Game>());
+const search: Ref<HTMLInputElement | null> = ref(null)
 const router = useRouter()
 
 watch(keyword, debounce(async () => {
@@ -83,7 +98,7 @@ watch(keyword, debounce(async () => {
         },
         server: false,
     })
-, 100}))
+}, 100))
 
 function searchIfNotEmpty(keyword: string) {
     keyword = keyword.replaceAll('/', '')
@@ -91,6 +106,11 @@ function searchIfNotEmpty(keyword: string) {
 
     active.value = false
     router.push(`/search/${keyword}`)
+}
+
+function emptyAndFocus() {
+    keyword.value = ''
+    search.value?.focus()
 }
 
 </script>
