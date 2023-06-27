@@ -1,6 +1,6 @@
 package dto
 
 type PlayerCount struct {
-	Hour  int
-	Count int
+    Hour  int `json:"hour"`
+    Count int `json:"count"`
 }

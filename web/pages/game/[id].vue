@@ -16,6 +16,10 @@
         </section>
 
         <DefaultContainer>
+            <GamePlayerCountChart
+                v-if="game"
+                :game="game"
+            />
         </DefaultContainer>
     </div>
 </template>
