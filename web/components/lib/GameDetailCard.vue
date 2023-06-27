@@ -30,6 +30,10 @@
         >
             {{ game.description }}
         </p>
+        <SkeletonContainer
+            v-else
+            class="h-12"
+        />
 
         <!-- Developers -->
         <div
@@ -76,35 +80,43 @@
 
         <!-- Purchase -->
         <div
-            v-if="game && game.price > 0"
-            class="flex w-full"
+            v-if="game"
         >
-            <DefaultButton
-                class="rounded-r-none w-3/5"
-            >
-                Add to cart
-            </DefaultButton>
             <div
-                class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
+                v-if="game && game.price > 0"
+                class="flex w-full"
             >
-                &euro; {{ game?.price }}
+                <DefaultButton
+                    class="rounded-r-none w-3/5"
+                >
+                    Add to cart
+                </DefaultButton>
+                <div
+                    class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
+                >
+                    &euro; {{ game?.price }}
+                </div>
+            </div>
+            <div
+                v-else
+                class="flex w-full"
+            >
+                <DefaultButton
+                    class="rounded-r-none w-3/5"
+                >
+                    Add to library
+                </DefaultButton>
+                <div
+                    class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
+                >
+                    FREE
+                </div>
             </div>
         </div>
-        <div
+        <SkeletonContainer
             v-else
-            class="flex w-full"
-        >
-            <DefaultButton
-                class="rounded-r-none w-3/5"
-            >
-                Add to library
-            </DefaultButton>
-            <div
-                class="flex p-1 items-center justify-center bg-zinc-900 border-zinc-700 border rounded-r-md w-2/5"
-            >
-                FREE
-            </div>
-        </div>
+            class="h-12"
+        />
     </DefaultContainer>
 </template>
 
