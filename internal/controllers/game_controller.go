@@ -14,6 +14,7 @@ type GameController struct {
 }
 
 func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
+	var query string
 	var games []dto.Game = []dto.Game{}
 
 	if r.URL.Query().Get("keyword") != "" {
@@ -21,10 +22,23 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err := database.Context.Query(`
-        SELECT * FROM games LIMIT 15;
-    `)
-	defer rows.Close()
+	switch r.URL.Query().Get("sortBy") {
+	case "popularity":
+		query = `
+                SELECT g.*, SUM(p.count) as total_players FROM games g
+                JOIN game_hour_players p
+                ON p.game_id = g.id
+                GROUP BY g.id
+                ORDER BY total_players DESC;
+            `
+	default:
+		query = `
+                SELECT * FROM games;
+            `
+	}
+
+	rows, err := database.Context.Query(query)
+	// defer rows.Close()
 
 	if err != nil {
 		c.ResponseError(w, err)
@@ -33,8 +47,10 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		var game dto.Game
+		// Quality programming right here folks
+		var _ignore string
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description, &_ignore); err != nil {
 			c.ResponseError(w, err)
 			return
 		}

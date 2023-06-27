@@ -15,7 +15,7 @@ type GameHourPlayersSeeder struct{}
 
 var (
 	errMaximumInvalid error = errors.New("minimum must be higher than 0")
-    peakHours []int = []int{19, 20, 21, 22, 23}
+	peakHours         []int = []int{19, 20, 21, 22, 23}
 )
 
 func (s GameHourPlayersSeeder) Seed() error {
@@ -50,7 +50,7 @@ func (s GameHourPlayersSeeder) Seed() error {
 
 	for _, g := range games {
 		var max int = rand.Intn(50000-20000) + 20000
-        var peakHour int = peakHours[rand.Intn(len(peakHours) - 1)]
+		var peakHour int = peakHours[rand.Intn(len(peakHours)-1)]
 
 		for hour := 0; hour < 24; hour++ {
 			playerCount, err := s.GeneratePlayerCount(max, hour, peakHour)
@@ -79,7 +79,7 @@ func (s GameHourPlayersSeeder) GeneratePlayerCount(maximum, hour, peakHour int) 
 	weight = math.Abs(1 - (math.Abs(float64(peakHour-hour)) / 10))
 
 	count = uint(float64(maximum)*weight) + uint(maximum)/24
-    count = uint(float64(count) * float64(float64((rand.Intn(120 - 90) + 90)) / float64(100)))
+	count = uint(float64(count) * float64(float64((rand.Intn(120-90)+90))/float64(100)))
 
 	return count, nil
 }

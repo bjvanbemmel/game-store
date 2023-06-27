@@ -1,5 +1,11 @@
 <template>
     <div class="flex flex-col flex-wrap gap-4 w-full">
+        <h1
+            class="text-xl"
+        >
+            All games sorted by <b>popularity</b>
+        </h1>
+
         <GameCarousal
             :games="games"
         ></GameCarousal>
@@ -19,6 +25,9 @@ await useApi<Array<Game>>('/api/games', {
     },
     onResponseError({ response }) {
         console.error(response)
+    },
+    query: {
+        sortBy: 'popularity',
     },
     server: false,
 })
