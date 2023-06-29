@@ -25,11 +25,11 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Query().Get("sortBy") {
 	case "popularity":
 		query = `
-                SELECT g.*, SUM(p.count) as total_players FROM games g
+                SELECT g.* FROM games g
                 JOIN game_hour_players p
                 ON p.game_id = g.id
                 GROUP BY g.id
-                ORDER BY total_players DESC;
+                ORDER BY COUNT(p.count) DESC;
             `
 	default:
 		query = `
@@ -38,7 +38,7 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	rows, err := database.Context.Query(query)
-	// defer rows.Close()
+	defer rows.Close()
 
 	if err != nil {
 		c.ResponseError(w, err)
@@ -47,10 +47,8 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 
 	for rows.Next() {
 		var game dto.Game
-		// Quality programming right here folks
-		var _ignore string
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description, &_ignore); err != nil {
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
 			c.ResponseError(w, err)
 			return
 		}

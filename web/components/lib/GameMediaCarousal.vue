@@ -52,7 +52,6 @@
             :src="getThumbnailIfYouTube(md)"
             @click.stop="data.activeMedia = md"
             class="rounded-md h-32 w-52 cursor-pointer object-cover"
-            ref="activeMediaElement"
             :class="md.uri === data.activeMedia.uri ? 'border-2 border-white' : ''"
         />
     </div>
@@ -60,7 +59,7 @@
 
 <script setup lang="ts">
 import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid'
-import { reactive, computed, defineProps, watch, ref } from 'vue'
+import { reactive, computed, defineProps, watch } from 'vue'
 import Media from '~/types/media'
 import MediaType from '~/types/media_type'
 
@@ -77,8 +76,6 @@ const data = reactive<{
     iterableMedia: props.media.filter(x => x.type === MediaType.Image),
     modal: false,
 })
-
-const activeMediaElement: Ref<Array<HTMLImageElement> | null> = ref(null)
 
 function getThumbnailIfYouTube(media: Media): string
 {
@@ -134,10 +131,6 @@ function navigateMedia(direction: Direction)
             data.activeMedia = props.media[activeMediaId.value + 1]
             break
     }
-
-    activeMediaElement.value?.[activeMediaId.value].scrollIntoView({
-        behavior: 'smooth',
-    })
 }
 
 const activeMediaId: ComputedRef<number> = computed(() => {

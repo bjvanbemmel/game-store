@@ -3,7 +3,7 @@
         <div
             @click.stop="toggle"
             v-if="active"
-            class="absolute top-0 left-0 z-40 bg-black/50 w-screen h-screen flex justify-center items-center cursor-pointer"
+            class="fixed top-0 left-0 z-40 bg-black/50 w-screen h-screen flex justify-center items-center cursor-pointer"
         >
             <DefaultContainer
                 @click.stop
@@ -48,7 +48,7 @@ watch(props, (props) => {
     }
 
     document.removeEventListener('keydown', toggleOnKey)
-    window.document.body.style.overflow = 'none'
+    window.document.body.style.overflow = 'auto'
 }, { immediate: true })
 </script>
 
