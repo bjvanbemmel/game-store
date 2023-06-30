@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4">
         <div
             class="bg-cyan-700 p-4 rounded-md shadow-md"
-            v-if="game?.release_date && gameDate > currentDate"
+            v-if="game?.release_date && gameDate > new Date()"
         >
             This game has not been released yet. It's slated for <b>{{ formattedDate }}</b>.
         </div>
@@ -53,7 +53,6 @@ import { computed } from 'vue'
 
 const route = useRoute()
 const game: Ref<Game | null> = ref(null)
-const currentDate: Date = new Date()
 
 const gameDate: ComputedRef<Date> = computed(() => {
     return new Date(game.value?.release_date ?? '');
