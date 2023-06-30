@@ -316,6 +316,18 @@ func (s GameGenreSeeder) Seed() error {
             ) VALUES (
                 17, 2
             );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                17, 1
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                17, 4
+            );
         `,
 	}
 

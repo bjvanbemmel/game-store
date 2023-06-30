@@ -192,6 +192,15 @@ func (s GameSeeder) Seed() error {
                 'Featuring a dynamic action combat system, deep character customization, and an epic story set in a vast world, BLUE PROTOCOL is an Online Action RPG where you become the hero of your very own anime adventure. ',
                 '2024-01-01'
             );
+        `, `
+            INSERT INTO games (
+                title, thumbnail, description, release_date
+            ) VALUES (
+                'Lies of P',
+                'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gematsu.com%2Fwp-content%2Fuploads%2F2021%2F11%2FGame-Page-Box-Art_Lies-of-P-320x480.jpg&f=1&nofb=1&ipt=f2bb68b41cda3f70b577c96418fbfd77b80eea810abdac5f978bb448c873daf4&ipo=images',
+                'Lies of P is a thrilling soulslike that takes the story of Pinocchio, turns it on its head, and sets it against the darkly elegant backdrop of the Belle Epoque era.',
+                '2023-09-06'
+            );
         `,
 	}
 

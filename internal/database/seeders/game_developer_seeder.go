@@ -179,6 +179,12 @@ func (s GameDeveloperSeeder) Seed() error {
             ) VALUES (
                 17, 11
             );
+        `, `
+            INSERT INTO game_developer (
+                game_id, developer_id
+            ) VALUES (
+                18, 20
+            );
         `,
 	}
 

@@ -124,6 +124,12 @@ func (s DeveloperSeeder) Seed() error {
             ) VALUES (
                 'PLAYISM'
             );
+        `, `
+            INSERT INTO developers (
+                name
+            ) VALUES (
+                'NEOWIZ'
+            );
         `,
 	}
 

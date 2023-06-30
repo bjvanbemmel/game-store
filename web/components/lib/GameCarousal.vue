@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, reactive } from 'vue'
+import { defineProps, reactive, } from 'vue'
 import Game from '~/types/game'
 
 interface Data {
