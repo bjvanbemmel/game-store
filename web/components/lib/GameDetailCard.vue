@@ -50,7 +50,7 @@
             class="text-sm text-zinc-400"
             v-if="game?.release_date"
         >
-            Release date: <span class="text-zinc-300">{{ gameDate.toLocaleDateString('nl-NL') }}</span>
+            Release date: <span class="text-zinc-300">{{ gameDate.toLocaleDateString('en-CA') }}</span>
         </p>
         <SkeletonContainer
             v-else

@@ -1,19 +1,16 @@
 <template>
-    <div class="flex flex-col flex-wrap gap-4 w-full">
-        <h1
-            class="text-xl"
-        >
-            Upcoming titles
-        </h1>
-
+    <div class="flex flex-wrap gap-4">
         <section
             v-for="date, i in dateStrings"
             :key="i"
-            class="flex flex-col gap-2"
+            class="flex flex-col gap-4 bg-black/30 p-4 rounded-md"
         >
             <h1
-                class="font-semibold text-xl"
+                class="flex gap-2 font-semibold items-center"
             >
+                <CalendarIcon
+                    class="h-6"
+                />
                 {{ parseDate(date) }}:
             </h1>
             <GameCarousal
@@ -27,6 +24,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Game from '~/types/game'
+import { CalendarIcon } from '@heroicons/vue/24/outline'
 
 const games: Ref<Array<Game> | null> = ref(null)
 const dateStrings: ComputedRef<Array<Date> | undefined> = computed(() => {
@@ -36,7 +34,7 @@ const dateStrings: ComputedRef<Array<Date> | undefined> = computed(() => {
 function parseDate(date: Date): String
 {
     let d: Date = new Date(date)
-    return d.toLocaleDateString('nl-NL')
+    return d.toLocaleDateString('en-CA')
 }
 
 await useApi<Array<Game>>('/api/games', {
