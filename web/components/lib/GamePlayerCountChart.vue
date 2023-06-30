@@ -1,6 +1,16 @@
 <template>
     <div>
+        <div
+            v-if="new Date(game.release_date) > new Date()"
+        >
+            <h3
+                class="text-sm text-zinc-400"
+            >
+                No player count data available.
+            </h3>
+        </div>
         <Line
+            v-else
             id="playercount"
             :options="chartOptions"
             :data="chartData"
