@@ -39,7 +39,7 @@ function parseDate(date: Date): String
     return d.toLocaleDateString('nl-NL')
 }
 
-await useApi<Array<Game>>('/api/games?filterBy=upcoming', {
+await useApi<Array<Game>>('/api/games', {
     onResponse({ response }) {
         if (response.status !== 200) return
         games.value = response._data
@@ -48,7 +48,7 @@ await useApi<Array<Game>>('/api/games?filterBy=upcoming', {
         console.error(response)
     },
     query: {
-        sortBy: 'popularity',
+        filterBy: 'upcoming',
     },
     server: false,
 })

@@ -13,5 +13,6 @@ export default interface Game {
     genres: Array<Genre>,
     developers: Array<Developer>,
     release_date: Date,
+    rating: number,
     player_count: Array<PlayerCount>,
 }

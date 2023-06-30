@@ -32,18 +32,28 @@
                 >
                     {{ developer.name }}
                 </NuxtLink>
-                <p
-                    class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
-                    v-if="game.price > 0"
+
+                <div
+                    class="flex justify-between"
                 >
-                    &euro; {{game.price}}
-                </p>
-                <p
-                    class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
-                    v-else
-                >
-                    FREE
-                </p>
+                    <p
+                        class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
+                        v-if="game.price > 0"
+                    >
+                        &euro; {{game.price}}
+                    </p>
+                    <p
+                        class="mt-1 border-zinc-500 border-[.025rem] rounded-md bg-zinc-900 w-max py-0.5 px-1 text-xs"
+                        v-else
+                    >
+                        FREE
+                    </p>
+                    <GameRatingLabel
+                        class="mt-1"
+                        :rating="game.rating"
+                    />
+                </div>
+
                 <div
                     :class="props.activeId === props.game.id ? 'flex' : 'hidden'"
                     class="gap-1 mt-2 flex-wrap"

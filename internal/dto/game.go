@@ -12,11 +12,12 @@ type Game struct {
 	Price       float32       `json:"price"`
 	Thumbnail   string        `json:"thumbnail"`
 	Description string        `json:"description"`
+	ReleaseDate time.Time     `json:"release_date"`
+	Rating      float64       `json:"rating"`
 	Media       []Media       `json:"media"`
 	Developers  []Developer   `json:"developers"`
 	Genres      []Genre       `json:"genres"`
 	PlayerCount []PlayerCount `json:"player_count"`
-	ReleaseDate time.Time     `json:"release_date"`
 }
 
 func (g *Game) FullFetch() (*Game, error) {

@@ -14,7 +14,8 @@ func (m AddGamesTable) Migrate() error {
             price NUMERIC NOT NULL DEFAULT 0.00,
             thumbnail VARCHAR(355) NOT NULL,
             description VARCHAR(3200) NOT NULL,
-            release_date DATE NOT NULL DEFAULT NOW()
+            release_date DATE NOT NULL DEFAULT NOW(),
+            rating NUMERIC NOT NULL DEFAULT -1.00
         );
     `)
 

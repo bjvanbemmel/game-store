@@ -23,6 +23,16 @@
             class="h-9"
         />
 
+        <!-- Rating -->
+        <GameRatingLabel
+            v-if="game"
+            :rating="game.rating"
+        />
+        <SkeletonContainer
+            v-else
+            class="h-6 w-12"
+        />
+
         <!-- Description -->
         <p
             v-if="game?.description"
@@ -35,11 +45,12 @@
             class="h-12"
         />
 
+        <!-- Release date -->
         <p
             class="text-sm text-zinc-400"
             v-if="game?.release_date"
         >
-            Release date: <span class="text-zinc-300">{{ releaseDate }}</span>
+            Release date: <span class="text-zinc-300">{{ gameDate.toLocaleDateString('nl-NL') }}</span>
         </p>
         <SkeletonContainer
             v-else
@@ -114,6 +125,7 @@
             >
                 <DefaultButton
                     class="rounded-r-none w-3/5"
+                    :disabled="gameDate > new Date()"
                 >
                     Add to library
                 </DefaultButton>
@@ -139,10 +151,7 @@ const props = defineProps<{
     game: Game | null
 }>()
 
-const releaseDate: ComputedRef<String> = computed(() => {
-    if (props.game === null) return ''
-
-    let date: Date = new Date(props.game.release_date)
-    return date.toLocaleDateString('nl-NL')
+const gameDate: ComputedRef<Date> = computed(() => {
+    return new Date(props.game?.release_date ?? '');
 })
 </script>
