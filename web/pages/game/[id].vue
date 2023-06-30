@@ -16,6 +16,11 @@
         </section>
 
         <DefaultContainer>
+            <h1
+                class="font-semibold"
+            >
+                Player count last 24 hours:
+            </h1>
             <GamePlayerCountChart
                 v-if="game"
                 :game="game"
