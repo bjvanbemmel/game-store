@@ -170,6 +170,12 @@ func (s GameGenreSeeder) Seed() error {
             INSERT INTO game_genre (
                 game_id, genre_id
             ) VALUES (
+                9, 15
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
                 10, 1
             );
         `, `
@@ -195,6 +201,12 @@ func (s GameGenreSeeder) Seed() error {
                 game_id, genre_id
             ) VALUES (
                 11, 2
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                11, 15
             );
         `, `
             INSERT INTO game_genre (
@@ -230,6 +242,12 @@ func (s GameGenreSeeder) Seed() error {
             INSERT INTO game_genre (
                 game_id, genre_id
             ) VALUES (
+                13, 15
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
                 14, 1
             );
         `, `
@@ -237,6 +255,42 @@ func (s GameGenreSeeder) Seed() error {
                 game_id, genre_id
             ) VALUES (
                 14, 5
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                15, 1
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                15, 5
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                15, 15
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                16, 4
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                16, 9
+            );
+        `, `
+            INSERT INTO game_genre (
+                game_id, genre_id
+            ) VALUES (
+                16, 15
             );
         `,
 	}

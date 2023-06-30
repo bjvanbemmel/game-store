@@ -1610,6 +1610,182 @@ func (s MediaSeeder) Seed() error {
                 1,
                 'https://cdn.akamai.steamstatic.com/steam/apps/678960/ss_dd91c7aa4e9352aab3573ff57e48833704c8d05e.1920x1080.jpg?t=1676860712'
             )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                2,
+                'https://youtube.com/embed/SlSfr6Wa5sc'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_549f55589c10866bc31243d277324e31ad155b29.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_dcd98899647b45246cfb296aa5a3b40b2ae87e9e.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_c92110c39a9c64376af5e8da31a0e6ffa9747334.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_6648f7e39998ae173b2271c6a325d4295e6db785.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_f441df5b6d02d0cbc2635f29ec502d93058e025c.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_88767c4785d5b7e839a5434e988a8aee1836e1ad.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_15c13c66ab68af7fc733afb0bd0bd3358e6e842f.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_ef41adedb3c5c5977b60ae255440c4bdcc9b6f52.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_3302cd480fbba54627e226877d1d99f3ea323ff5.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_c8e974d1e0460034c4dce3b96605b3e2a6ed29db.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                15,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1888160/ss_560147479a040f97fcb507733f8fb85499d13e13.1920x1080.jpg?t=1687177060'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                2,
+                'https://youtube.com/embed/kfYEiTdsyas'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_4887dc140a637684ddcfca518458668409f946dc.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_b2821283cb140cd5a6289a8160016b6a60d8f96e.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_68f15d580bf91971f637be5e464bc803482d78f7.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_aae99c177004bb5ec653d2fcb65a5d30489ec7b8.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_c8594798fadfd8e042b2fc8afff7bcf4872c5198.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_2288919a390c0147b7d2226354a61452016fd087.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_45c1dc3cd5399eb16230ed85dab25ce945c46726.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_930710a45c08eaa4c10fa0be7c0663900e1d32f3.1920x1080.jpg?t=1687290127'
+            )
+        `, `
+            INSERT INTO media (
+                game_id, type, uri
+            ) VALUES (
+                16,
+                1,
+                'https://cdn.cloudflare.steamstatic.com/steam/apps/1716740/ss_177d2492278d3ccc5b1c58bc96dcb63aacddb1a5.1920x1080.jpg?t=1687290127'
+            )
         `,
 	}
 

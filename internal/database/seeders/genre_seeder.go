@@ -94,6 +94,12 @@ func (s GenreSeeder) Seed() error {
             ) VALUES (
                 'Horror'
             );
+        `, `
+            INSERT INTO genres (
+                name
+            ) VALUES (
+                'Sci-fi'
+            );
         `,
 	}
 

@@ -12,5 +12,6 @@ export default interface Game {
     media: Array<Media>,
     genres: Array<Genre>,
     developers: Array<Developer>,
+    release_date: Date,
     player_count: Array<PlayerCount>,
 }

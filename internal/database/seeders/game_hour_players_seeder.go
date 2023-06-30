@@ -6,6 +6,7 @@ import (
 	"log"
 	"math"
 	"math/rand"
+	"time"
 
 	"github.com/bjvanbemmel/game-store/internal/database"
 	"github.com/bjvanbemmel/game-store/internal/dto"
@@ -30,7 +31,7 @@ func (s GameHourPlayersSeeder) Seed() error {
     `
 
 	rows, err := database.Context.Query(`
-        SELECT * FROM games;
+        SELECT id, release_date FROM games;
     `)
 	defer rows.Close()
 
@@ -41,7 +42,7 @@ func (s GameHourPlayersSeeder) Seed() error {
 	for rows.Next() {
 		var game dto.Game
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+		if err := rows.Scan(&game.Id, &game.ReleaseDate); err != nil {
 			log.Panic(err)
 		}
 
@@ -53,9 +54,13 @@ func (s GameHourPlayersSeeder) Seed() error {
 		var peakHour int = peakHours[rand.Intn(len(peakHours)-1)]
 
 		for hour := 0; hour < 24; hour++ {
-			playerCount, err := s.GeneratePlayerCount(max, hour, peakHour)
-			if err != nil {
-				log.Fatal(err)
+			var playerCount uint = 0
+
+			if !g.ReleaseDate.After(time.Now()) {
+				playerCount, err = s.GeneratePlayerCount(max, hour, peakHour)
+				if err != nil {
+					log.Fatal(err)
+				}
 			}
 
 			if _, err := database.Context.Exec(query, g.Id, hour, playerCount); err != nil {

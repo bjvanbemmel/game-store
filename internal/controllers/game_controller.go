@@ -29,11 +29,24 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
                 JOIN game_hour_players p
                 ON p.game_id = g.id
                 GROUP BY g.id
-                ORDER BY COUNT(p.count) DESC;
+                ORDER BY SUM(p.count) DESC;
+            `
+	case "release_date":
+		query = `
+                SELECT * FROM games
+                ORDER BY release_date DESC;
             `
 	default:
 		query = `
                 SELECT * FROM games;
+            `
+	}
+
+	if r.URL.Query().Get("filterBy") == "upcoming" {
+		query = `
+                SELECT * FROM games
+                WHERE release_date > NOW()
+                ORDER BY release_date ASC;
             `
 	}
 
@@ -48,7 +61,7 @@ func (c GameController) Index(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var game dto.Game
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description, &game.ReleaseDate); err != nil {
 			c.ResponseError(w, err)
 			return
 		}
@@ -80,7 +93,7 @@ func (c GameController) Show(w http.ResponseWriter, r *http.Request) {
     `, chi.URLParam(r, "id"))
 
 	var game dto.Game
-	if err := row.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+	if err := row.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description, &game.ReleaseDate); err != nil {
 		c.ResponseError(w, err)
 		return
 	}
@@ -108,7 +121,7 @@ func (c GameController) PartialSearch(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		var game dto.Game
 
-		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description); err != nil {
+		if err := rows.Scan(&game.Id, &game.Title, &game.Price, &game.Thumbnail, &game.Description, &game.ReleaseDate); err != nil {
 			c.ResponseError(w, err)
 			return
 		}
@@ -137,7 +150,7 @@ func (c GameController) Similar(w http.ResponseWriter, r *http.Request) {
         SELECT * FROM games WHERE id = $1
     `, chi.URLParam(r, "id"))
 
-	if err := row.Scan(&curGame.Id, &curGame.Title, &curGame.Price, &curGame.Thumbnail, &curGame.Description); err != nil {
+	if err := row.Scan(&curGame.Id, &curGame.Title, &curGame.Price, &curGame.Thumbnail, &curGame.Description, &curGame.ReleaseDate); err != nil {
 		c.ResponseError(w, err)
 		return
 	}

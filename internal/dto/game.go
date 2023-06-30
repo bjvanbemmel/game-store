@@ -1,6 +1,8 @@
 package dto
 
 import (
+	"time"
+
 	"github.com/bjvanbemmel/game-store/internal/database"
 )
 
@@ -14,6 +16,7 @@ type Game struct {
 	Developers  []Developer   `json:"developers"`
 	Genres      []Genre       `json:"genres"`
 	PlayerCount []PlayerCount `json:"player_count"`
+	ReleaseDate time.Time     `json:"release_date"`
 }
 
 func (g *Game) FullFetch() (*Game, error) {

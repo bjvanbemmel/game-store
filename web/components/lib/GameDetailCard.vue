@@ -35,6 +35,17 @@
             class="h-12"
         />
 
+        <p
+            class="text-sm text-zinc-400"
+            v-if="game?.release_date"
+        >
+            Release date: <span class="text-zinc-300">{{ releaseDate }}</span>
+        </p>
+        <SkeletonContainer
+            v-else
+            class="h-6"
+        />
+
         <!-- Developers -->
         <div
             v-if="game?.developers"
@@ -122,9 +133,16 @@
 
 <script setup lang="ts">
 import Game from '~/types/game'
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 
-defineProps<{
+const props = defineProps<{
     game: Game | null
 }>()
+
+const releaseDate: ComputedRef<String> = computed(() => {
+    if (props.game === null) return ''
+
+    let date: Date = new Date(props.game.release_date)
+    return date.toLocaleDateString('nl-NL')
+})
 </script>
