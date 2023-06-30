@@ -1,10 +1,10 @@
 <template>
     <div class="flex flex-col flex-wrap gap-4 w-full">
         <h1
-            v-if="developer"
+            v-if="genre"
             class="text-xl"
         >
-            All games from <b>{{ developer.name }}</b>
+            All <b>{{ genre.name }}</b> games
         </h1>
 
         <GameCarousal
@@ -20,12 +20,12 @@ import Developer from '~/types/developer'
 
 const route = useRoute()
 const games: Ref<Array<Game> | null> = ref(null)
-const developer: Ref<Developer | null> = ref(null)
+const genre: Ref<Developer | null> = ref(null)
 
-await useApi<Array<Game>>(`/api/developers/${route.params.id}/games`, {
+await useApi<Array<Game>>(`/api/genres/${route.params.id}/games`, {
     onResponse({ response }) {
         if (response.status !== 200) return
-        developer.value = response._data.developer
+        genre.value = response._data.genre
         games.value = response._data.games
     },
     onResponseError({ response }) {
