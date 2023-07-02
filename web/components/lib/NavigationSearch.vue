@@ -1,5 +1,5 @@
 <template>
-    <div class="hidden md:flex">
+    <div>
         <Transition>
             <div
                 v-if="active"
@@ -11,48 +11,52 @@
             id="1"
             class="group w-full flex gap-4 flex-col relative mb-8"
             :class="active ? 'z-50' : ''"
-            @keydown.enter.stop="searchIfNotEmpty(keyword)"
-            @keydown.escape.stop="active = false"
+            @keydown.enter.stop="searchIfNotEmpty(keyword); mobileSearch = false"
+            @keydown.escape.stop="active = false; mobileSearch = false"
             @submit.stop.prevent
         >
             <div
                 class="relative flex item-center w-full" 
             >
-                <input
-                    class="
-                    rounded-l-md
-                    px-4
-                    py-2
-                    shadow-md
-                    w-5/6
-                    bg-zinc-600
-                    text-zinc-50
-                    focus:outline-none
-                    "
-                    type="text"
-                    placeholder="Search..."
-                    v-model="keyword"
-                    ref="search"
-                    @click.stop="active = true"
-                    @focus="active = true"
-                    @input="active = true"
-                />
+                <div
+                    class="relative flex w-5/6"
+                >
+                    <input
+                        class="
+                        rounded-l-md
+                        px-4
+                        py-2
+                        shadow-md
+                        w-full
+                        bg-zinc-600
+                        text-zinc-50
+                        focus:outline-none
+                        "
+                        type="text"
+                        placeholder="Search..."
+                        v-model="keyword"
+                        ref="search"
+                        @click.stop="active = true"
+                        @focus="active = true"
+                        @input="active = true"
+                    />
 
-                <Transition>
-                    <button
-                        v-if="active"
-                        class="absolute right-16 h-full flex items-center"
-                        @click="emptyAndFocus"
-                    >
-                        <XMarkIcon
-                            class="h-6 text-zinc-400"
-                        />
-                    </button>
-                </Transition>
+                    <Transition>
+                        <button
+                            v-if="active"
+                            class="absolute right-2 h-full flex items-center"
+                            @click="emptyAndFocus"
+                        >
+                            <XMarkIcon
+                                class="h-6 text-zinc-400"
+                            />
+                        </button>
+                    </Transition>
+                </div>
 
                 <button
                     class="bg-zinc-700 text-zinc-300 rounded-r-md w-1/6"
-                    @click="searchIfNotEmpty(keyword)"
+                    @click="searchIfNotEmpty(keyword); mobileSearch = false"
                 >
                     <MagnifyingGlassIcon
                         class="h-5 mx-auto"
@@ -84,6 +88,7 @@ const active: Ref<boolean> = ref(false);
 const keyword: Ref<string> = ref("");
 const games: Ref<Array<Game>> = ref(new Array<Game>());
 const search: Ref<HTMLInputElement | null> = ref(null)
+const mobileSearch: Ref<Boolean> = useMobileSearch()
 const router = useRouter()
 
 watch(keyword, debounce(async () => {

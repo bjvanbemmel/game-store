@@ -25,7 +25,7 @@
             <NuxtLink
                 v-for="game, i in games.slice(0, 4)"
                 :key="i"
-                @click.stop="emit('navigate')"
+                @click.stop="emit('navigate'); mobileSearch = false"
                 :to="`/game/${game.id}`"
                 class="
                 first:rounded-t-md
@@ -71,7 +71,7 @@
                 </div>
             </NuxtLink>
             <NuxtLink
-                @click="emit('browse')"
+                @click="emit('browse'); mobileSearch = false"
                 class="rounded-b-md underline hover:bg-zinc-700 hover:cursor-pointer transition-colors duration-75 text-blue-400 p-4"
             >
                 Browse all {{ games.length }} results
@@ -87,6 +87,8 @@ import { defineProps, defineEmits } from 'vue'
 defineProps<{
     games: Array<Game>
 }>()
+
+const mobileSearch: Ref<Boolean> = useMobileSearch()
 
 const emit = defineEmits<{
     (e: 'navigate'): void
