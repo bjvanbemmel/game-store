@@ -1,5 +1,5 @@
 <template>
-    <section class="w-full flex flex-row">
+    <section class="w-full flex flex-col md:flex-row">
         <ClientOnly>
             <DefaultModal
                 :active="mobileSearch"
@@ -15,6 +15,17 @@
         <NavigationBar />
         <main class="relative w-full p-8">
             <slot></slot>
+            <p
+                class="md:hidden pb-16 m-4 text-sm text-zinc-500"
+            >
+                Need help?
+                <NuxtLink
+                    class="text-sm hover:text-zinc-600 hover:cursor-pointer transition-colors duration-75"
+                    to="/contact"
+                >
+                    <u>Contact us.</u>
+                </NuxtLink>
+            </p>
         </main>
     </section>
 </template>

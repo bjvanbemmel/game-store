@@ -1,7 +1,7 @@
 <template>
-    <div class="w-20 lg:w-96 flex-shrink-0 transition-all duration-100"></div>
-    <nav class="flex flex-col justify-between w-20 lg:w-96 flex-shrink-0 bg-zinc-800 h-screen fixed z-20 transition-all duration-100">
-        <ul class="flex flex-col gap-3 text-zinc-200 p-3 lg:p-8 w-full">
+    <div class="fixed md:static bottom-0 w-full h-20 md:w-20 lg:w-96 flex-shrink-0 transition-all duration-100"></div>
+    <nav class="bottom-0 flex flex-col justify-between w-full md:w-20 lg:w-96 flex-shrink-0 bg-zinc-800 h-20 md:h-screen fixed z-30 transition-all duration-100">
+        <ul class="flex justify-evenly md:justify-start md:flex-col gap-3 text-zinc-200 p-3 lg:p-8 w-full">
             <NavigationSearch
                 class="hidden lg:flex mb-8"
             />
