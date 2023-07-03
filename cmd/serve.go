@@ -25,7 +25,7 @@ func (s Serve) Execute() error {
 	r.Use(middleware.Logger)
 	r.Use(cors.Handler(
 		cors.Options{
-			AllowedOrigins: []string{"http://*"},
+			AllowedOrigins: []string{"http://*", "https://*"},
 		},
 	))
 

@@ -8,7 +8,7 @@
             <NavigationLink
                 route=""
                 class="h-[3.75rem] flex lg:hidden justify-start lg:justify-center items-center hover:cursor-pointer"
-                @click="mobileSearch = !mobileSearch"
+                @click="toggleMobileSearch"
             >
                 <MagnifyingGlassIcon
                     class="h-6"
@@ -60,6 +60,4 @@
 
 <script setup lang="ts">
 import { ChartBarIcon, HeartIcon, CalendarIcon, MagnifyingGlassIcon} from '@heroicons/vue/24/outline'
-
-const mobileSearch = useMobileSearch()
 </script>

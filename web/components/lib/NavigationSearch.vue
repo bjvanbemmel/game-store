@@ -11,8 +11,8 @@
             id="1"
             class="group w-full flex gap-4 flex-col relative mb-8"
             :class="active ? 'z-50' : ''"
-            @keydown.enter.stop="searchIfNotEmpty(keyword); mobileSearch = false"
-            @keydown.escape.stop="active = false; mobileSearch = false"
+            @keydown.enter.stop="searchIfNotEmpty(keyword)"
+            @keydown.escape.stop="active = false"
             @submit.stop.prevent
         >
             <div
@@ -56,7 +56,7 @@
 
                 <button
                     class="bg-zinc-700 text-zinc-300 rounded-r-md w-1/6"
-                    @click="searchIfNotEmpty(keyword); mobileSearch = false"
+                    @click="searchIfNotEmpty(keyword)"
                 >
                     <MagnifyingGlassIcon
                         class="h-5 mx-auto"
@@ -88,7 +88,6 @@ const active: Ref<boolean> = ref(false);
 const keyword: Ref<string> = ref("");
 const games: Ref<Array<Game>> = ref(new Array<Game>());
 const search: Ref<HTMLInputElement | null> = ref(null)
-const mobileSearch: Ref<Boolean> = useMobileSearch()
 const router = useRouter()
 
 watch(keyword, debounce(async () => {
@@ -110,6 +109,7 @@ function searchIfNotEmpty(keyword: string) {
     if (keyword === '') return
 
     active.value = false
+    toggleMobileSearch()
     router.push(`/search/${keyword}`)
 }
 
