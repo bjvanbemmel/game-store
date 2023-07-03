@@ -2,14 +2,14 @@
     <div>
         <Transition>
             <div
-                v-if="active"
+                v-if="props.blackbox && active"
                 class="absolute top-0 left-0 w-screen h-screen bg-black/40 z-40"
                 @click.stop="active = false"
             ></div>
         </Transition>
         <form
             id="1"
-            class="group w-full flex gap-4 flex-col relative mb-8"
+            class="group w-full flex gap-4 flex-col relative"
             :class="active ? 'z-50' : ''"
             @keydown.enter.stop="searchIfNotEmpty(keyword)"
             @keydown.escape.stop="active = false"
@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import Game from '~/types/game'
-import { ref, watch } from 'vue'
+import { ref, watch, defineProps, onMounted } from 'vue'
 import { debounce } from 'lodash';
 
 const active: Ref<boolean> = ref(false);
@@ -89,6 +89,25 @@ const keyword: Ref<string> = ref("");
 const games: Ref<Array<Game>> = ref(new Array<Game>());
 const search: Ref<HTMLInputElement | null> = ref(null)
 const router = useRouter()
+
+const props = defineProps({
+    blackbox: {
+        type: Boolean,
+        required: false,
+        default: true,
+    },
+    autofocus: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+})
+
+onMounted(() => {
+    if (!props.autofocus) return
+
+    search.value?.focus()
+})
 
 watch(keyword, debounce(async () => {
     if (keyword.value.length < 2) return

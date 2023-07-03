@@ -1,16 +1,18 @@
 <template>
     <section class="w-full flex flex-row">
-        <NavigationBar />
-        <Transition>
-            <div
-                class="fixed lg:hidden top-0 z-30 p-5 flex w-screen justify-center items-center bg-zinc-900"
-                v-if="mobileSearch"
+        <ClientOnly>
+            <DefaultModal
+                :active="mobileSearch"
+                @toggle="(v) => mobileSearch = v"
             >
                 <NavigationSearch
-                    class="h-10 w-full"
+                    class="w-64 sm:w-80 md:w-96"
+                    :autofocus="true"
+                    :blackbox="false"
                 />
-            </div>
-        </Transition>
+            </DefaultModal>
+        </ClientOnly>
+        <NavigationBar />
         <main class="relative w-full p-8">
             <slot></slot>
         </main>
@@ -18,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-const mobileSearch = useMobileSearch()
+const mobileSearch: Ref<Boolean> = useMobileSearch()
 </script>
 
 <style scoped>

@@ -18,6 +18,10 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, watch } from 'vue'
 
+const props = defineProps<{
+    active: Boolean,
+}>()
+
 const emit = defineEmits<{
     (e: 'toggle', value: boolean): void,
 }>()
@@ -32,24 +36,19 @@ function toggleOnKey(e: KeyboardEvent) {
     }
 }
 
-const props = defineProps({
-    active: {
-        type: Boolean,
-        required: false,
-        default: false,
-    },
-})
+watch(
+    () => props.active,
+    (active) => {
+        if (active) {
+            document.body.style.overflow = 'hidden'
+            document.addEventListener('keydown', toggleOnKey)
+            return
+        }
 
-watch(props, (props) => {
-    if (props.active) {
-        window.document.body.style.overflow = 'hidden'
-        document.addEventListener('keydown', toggleOnKey)
-        return
-    }
-
-    document.removeEventListener('keydown', toggleOnKey)
-    window.document.body.style.overflow = 'auto'
-}, { immediate: true })
+        document.removeEventListener('keydown', toggleOnKey)
+        document.body.style.overflow = 'auto'
+    }, { immediate: true }
+)
 </script>
 
 <style scoped>

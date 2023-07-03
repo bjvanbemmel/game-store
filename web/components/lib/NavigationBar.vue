@@ -3,7 +3,7 @@
     <nav class="flex flex-col justify-between w-20 lg:w-96 flex-shrink-0 bg-zinc-800 h-screen fixed z-20 transition-all duration-100">
         <ul class="flex flex-col gap-3 text-zinc-200 p-3 lg:p-8 w-full">
             <NavigationSearch
-                class="hidden lg:flex"
+                class="hidden lg:flex mb-8"
             />
             <NavigationLink
                 route=""
