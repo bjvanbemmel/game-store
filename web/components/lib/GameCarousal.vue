@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex flex-wrap gap-5"
+        class="flex md:justify-start flex-wrap gap-5"
         v-if="props.games === null"
     >
         <SkeletonGameThumbnail
@@ -9,7 +9,7 @@
         />
     </div>
     <div
-        class="flex flex-wrap gap-5"
+        class="flex justify-center md:justify-start flex-wrap gap-5"
         v-else
     >
         <GameThumbnail

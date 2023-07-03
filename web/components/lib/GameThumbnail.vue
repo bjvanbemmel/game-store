@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative h-[21.125rem] w-48"
+        class="relative h-[21.125rem] w-40 md:w-48"
     >
         <NuxtLink
             @mouseenter="setActiveId(props.game.id)"
@@ -11,9 +11,9 @@
                 'opacity-60': ![-1, props.game.id, ].includes(props.activeId),
                 'z-10': props.activeId === props.game.id,
             }"
-            class="absolute group transition-opacity duration-150 rounded-md w-48 hover:cursor-pointer"
+            class="absolute group transition-opacity duration-150 rounded-md w-40 md:w-48 hover:cursor-pointer"
         >
-            <div class="absolute h-60 w-48"></div>
+            <div class="absolute h-60 w-40 md:w-48"></div>
             <img
                 :src="props.game.thumbnail"
                 class="h-60 w-full rounded-t-md object-cover"

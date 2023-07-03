@@ -3,11 +3,12 @@
         <div
             @click.stop="toggle"
             v-if="active"
-            class="fixed top-0 left-0 z-40 bg-black/50 w-screen h-screen flex justify-center items-center cursor-pointer"
+            class="fixed top-0 left-0 z-40 p-8 8 bg-black/70 w-screen h-screen flex cursor-pointer"
+            :class="centered ? 'justify-center items-center' : ''"
         >
             <DefaultContainer
                 @click.stop
-                class="flex flex-col gap-4 cursor-auto z-50"
+                class="flex flex-col gap-4 cursor-auto z-50 h-max"
             >
                 <slot />
             </DefaultContainer>
@@ -18,9 +19,16 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, watch } from 'vue'
 
-const props = defineProps<{
-    active: Boolean,
-}>()
+const props = defineProps({
+    active: {
+        type: Boolean,
+        required: true,
+    },
+    centered: {
+        type: Boolean,
+        default: true,
+    },
+})
 
 const emit = defineEmits<{
     (e: 'toggle', value: boolean): void,

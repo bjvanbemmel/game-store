@@ -4,16 +4,18 @@
             <DefaultModal
                 :active="mobileSearch"
                 @toggle="(v) => mobileSearch = v"
+                :centered="false"
+                class="justify-center"
             >
                 <NavigationSearch
-                    class="w-64 sm:w-80 md:w-96"
+                    class="w-72 sm:w-80 md:w-96"
                     :autofocus="true"
                     :blackbox="false"
                 />
             </DefaultModal>
         </ClientOnly>
         <NavigationBar />
-        <main class="relative w-full p-8">
+        <main class="relative w-full px-2 py-4 md:px-8 md:py-8">
             <slot></slot>
             <p
                 class="md:hidden pb-16 m-4 text-sm text-zinc-500"
@@ -31,17 +33,5 @@
 </template>
 
 <script setup lang="ts">
-const mobileSearch: Ref<Boolean> = useMobileSearch()
+const mobileSearch: Ref<boolean> = useMobileSearch()
 </script>
-
-<style scoped>
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
-}
-
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.2s ease;
-}
-</style>

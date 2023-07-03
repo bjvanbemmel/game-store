@@ -45,7 +45,7 @@
         </ul>
 
         <p
-            class="m-4 text-sm text-zinc-500"
+            class="hidden md:block m-4 text-sm text-zinc-500"
         >
             Need help?
             <NuxtLink

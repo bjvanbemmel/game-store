@@ -1,6 +1,6 @@
 <template>
     <div
-        class="group rounded-md w-48"
+        class="group rounded-md w-40 md:w-48"
     >
         <SkeletonContainer
             class="h-60 w-full rounded-b-none"

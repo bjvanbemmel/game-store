@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col flex-wrap gap-4 w-full">
+    <div class="flex items-center md:items-start flex-col flex-wrap gap-4 w-full">
         <h1
-            class="text-xl"
+            class="text-xl text-center"
         >
             Search results for <q class="font-semibold">{{ route.params.keyword }}</q>
         </h1>
