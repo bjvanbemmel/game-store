@@ -1,6 +1,6 @@
 <template>
     <div
-        class="flex justify-center md:justify-start flex-wrap gap-5"
+        class="grid grid-cols-2 md:flex md:justify-start md:flex-wrap gap-5"
         v-if="props.games === null"
     >
         <SkeletonGameThumbnail
@@ -9,7 +9,7 @@
         />
     </div>
     <div
-        class="flex justify-center md:justify-start flex-wrap gap-5"
+        class="grid grid-cols-2 md:flex md:justify-start md:flex-wrap gap-5"
         v-else
     >
         <GameThumbnail
