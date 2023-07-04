@@ -7,7 +7,7 @@
             <div class="relative group">
                 <GameMedia
                     :media="data.activeMedia"
-                    class="object-none w-auto max-w-7xl"
+                    class="object-none w-96 md:max-w-7xl"
                 />
                 <div class="hidden group-hover:flex absolute h-full w-full top-0 items-center justify-between p-4">
                     <button
@@ -34,24 +34,24 @@
     </ClientOnly>
     <div
         @click.stop="data.modal = !data.modal"
-        class="group relative cursor-pointer"
+        class="w-full md:w-auto group relative cursor-pointer"
     >
         <GameMedia
             :media="data.activeMedia"
-            class="h-[30rem] w-[53rem]"
+            class="h-64 md:h-[30rem] w-full md:w-[53rem]"
         />
         <MagnifyingGlassIcon
             v-if="data.activeMedia.type === MediaType.Image"
             class="h-12 absolute right-2 bottom-2 hidden group-hover:block bg-zinc-800 shadow-md rounded-full p-3"
         />
     </div>
-    <div class="flex gap-2 w-[53rem] overflow-x-scroll">
+    <div class="flex gap-2 w-full md:w-[53rem] overflow-x-scroll">
         <img
             v-for="md, i in media"
             :key="i"
             :src="getThumbnailIfYouTube(md)"
             @click.stop="data.activeMedia = md"
-            class="rounded-md h-32 w-52 cursor-pointer object-cover"
+            class="rounded-md h-24 w-40 md:h-32 md:w-52 cursor-pointer object-cover"
             :class="md.uri === data.activeMedia.uri ? 'border-2 border-white' : ''"
         />
     </div>

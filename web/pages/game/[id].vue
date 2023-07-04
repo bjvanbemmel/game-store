@@ -7,7 +7,7 @@
             This game has not been released yet. It's slated for <b>{{ formattedDate }}</b>.
         </div>
 
-        <section class="flex gap-4">
+        <section class="flex md:flex-row flex-col-reverse gap-4">
             <DefaultContainer class="flex flex-col items-center gap-4 w-full">
                 <GameMediaCarousal
                     v-if="game?.media"

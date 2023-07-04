@@ -3,12 +3,12 @@
         <!-- Cover -->
         <img
             v-if="game?.thumbnail"
-            class="h-96 w-64 rounded-md object-cover outline-none border-none"
+            class="h-full md:h-96 w-full md:w-64 rounded-md object-cover outline-none border-none"
             :src="game?.thumbnail"
         />
         <SkeletonContainer
             v-else
-            class="h-96 w-64"
+            class="h-96 w-full md:w-64"
         />
 
         <!-- Title -->
@@ -36,7 +36,7 @@
         <!-- Description -->
         <p
             v-if="game?.description"
-            class="w-64 text-sm text-zinc-200"
+            class="w-full md:w-64 text-sm text-zinc-200"
         >
             {{ game.description }}
         </p>
@@ -73,13 +73,13 @@
         </div>
         <SkeletonContainer
             v-else
-            class="h-6 w-64"
+            class="h-6 w-full md:w-64"
         />
 
         <!-- Genres -->
         <div
             v-if="game?.genres"
-            class="flex flex-wrap gap-2 w-64"
+            class="flex flex-wrap gap-2 w-full md:w-64"
         >
             <NuxtLink
                 v-for="genre, i in game.genres"
@@ -92,7 +92,7 @@
         </div>
         <div
             v-else
-            class="flex flex-wrap gap-2 w-64"
+            class="flex flex-wrap gap-2 w-full md:w-64"
         >
             <SkeletonContainer class="h-6 w-14" />
             <SkeletonContainer class="h-6 w-14" />

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col flex-wrap gap-4 w-full">
+    <div class="flex flex-col items-center md:items-start flex-wrap gap-4 w-full">
         <h1
             v-if="genre"
             class="text-xl"
