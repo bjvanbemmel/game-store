@@ -19,6 +19,7 @@
             <slot></slot>
             <p
                 class="md:hidden pb-16 m-4 text-sm text-zinc-500"
+                v-if="router.currentRoute.value.path !== '/contact'"
             >
                 Need help?
                 <NuxtLink
@@ -34,4 +35,5 @@
 
 <script setup lang="ts">
 const mobileSearch: Ref<boolean> = useMobileSearch()
+const router = useRouter()
 </script>

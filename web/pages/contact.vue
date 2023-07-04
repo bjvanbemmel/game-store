@@ -7,7 +7,7 @@
         >
             Contact
         </h1>
-        <form class="flex flex-col gap-4 w-96">
+        <form class="flex flex-col gap-4 w-full md:w-96">
             <DefaultTextInput
                 class="w-full"
                 required
