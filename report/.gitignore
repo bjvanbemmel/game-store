@@ -2,3 +2,8 @@
 *.aux
 *.log
 *.toc
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.run.xml

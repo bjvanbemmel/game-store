@@ -1,23 +1,62 @@
 \documentclass[a4paper]{report}
 \usepackage[dutch]{babel}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{graphics}
-\graphicspath{{./img}}
+\usepackage[backend=biber,style=apa]{biblatex}
+\addbibresource{citations.bib}
+\usepackage{csquotes}
+\usepackage{lmodern}
 \renewcommand{\familydefault}{\sfdefault}
-\renewcommand{\baselinestretch}{1.5}
 
-\title{Front-end keuzedeel SEO / Toegankelijkheid verslag}
+\title{Front-end keuzedeel eindverslag}
 \author{Beau Jean van Bemmel, 97085143}
 \begin{document}
     \maketitle
 
-    \pagenumbering{gobble}
     \chapter*{Voorwoord}
-    Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+    \pagenumbering{gobble}
+    Dit verslag gaat ervan uit dat de lezer al wat basis kennis heeft op het gebied van web development.
+    Zo wordt er hier en daar vakterminologie gebruikt. Bij elke eerste instantie van zo'n woord is er ook een referentie te vinden naar een externe bron.
+    Aan het einde van dit document vindt u ook een bibliografie met alle gebruikte bronnen.
 
+    Ik hoop met dit verslag wat inspiratie te kunnen creëren bij de lezer(s) om ook op pad te gaan en een nieuw framework te leren en toe te passen.
+    Er is niets belangrijker voor een software developer dan de vaardigheid om uit zijn of haar comfort-zone te kunnen kruipen.
     \tableofcontents
 
     \chapter{Inleiding}
     \pagenumbering{arabic}
-    Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.
+    De afgelopen twéé maanden ben ik bezig geweest met het \textit{front-end development} keuzedeel.
+    Gedurende deze periode heb ik o.a. veel kennis opgedaan van 
+    \textit{Nuxt}\footfullcite{nuxt}, een 
+    \textit{meta-framework}\footfullcite{meta} voor 
+    \textit{Vue.js}\footfullcite{vue}.
+    
+    Naast het gebruiken van een front-end framework heb ik er ook voor gekozen om een \textit{Application Programming Interface (API)}\footfullcite{api} te bouwen en gebruiken.
+    Deze API heb ik gemaakt met \textit{Go}\footfullcite{go}. Meer over deze beslissing en de uitwerking hiervan vindt u in een later hoofdstuk.
+
+    \chapter{Gebruikte technologieën}
+    \section{TypeScript}
+
+    \section{Go}
+
+    \section{Nuxt}
+    Ik had voor Nuxt gekozen, omdat dit framework met \textit{Server Side Rendering (SSR)} komt.
+    Dit houdt in dat de HTML op de server gegenereerd wordt i.p.v. op de client. De aanwezigheid van SSR maakt het bot vriendelijk - om het zo even te noemen.
+
+    Nu maakt Nuxt niet alleen maar gebruik van SSR. Feitelijk maakt het gebruik van \textit{Universal Rendering}\footfullcite{universal}.
+    Dat wil betekenen dat op de \textit{initial page load} - het moment dat de pagina voor het eerst wordt ingeladen - alle HTML gegenereerd wordt door de server
+    en verstuurd wordt naar de client. Naast deze HTML wordt ook een lading \textit{JavaScript (JS)} meegestuurd. Deze JS neemt het hierna over en maakt van de applicatie een
+    \textit{Single-page application (SPA)}\footfullcite{spa}.
+
+    \section{Tailwind}
+
+    \section{Docker}
+
+    \chapter{SEO}
+
+    \chapter{Toegankelijkheid}
+
+    \chapter{Verbetervoorstellen}
+
+    \chapter{Reflectie}
+
+    \printbibliography
 \end{document}
