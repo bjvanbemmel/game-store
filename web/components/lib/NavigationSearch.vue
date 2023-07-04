@@ -82,7 +82,7 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import Game from '~/types/game'
 import { ref, watch, defineProps, onMounted } from 'vue'
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 const active: Ref<boolean> = ref(false);
 const keyword: Ref<string> = ref("");
