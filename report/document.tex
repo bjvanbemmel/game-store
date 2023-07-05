@@ -32,10 +32,34 @@
     Naast het gebruiken van een front-end framework heb ik er ook voor gekozen om een \textit{Application Programming Interface (API)}\footfullcite{api} te bouwen en gebruiken.
     Deze API heb ik gemaakt met \textit{Go}\footfullcite{go}. Meer over deze beslissing en de uitwerking hiervan vindt u in een later hoofdstuk.
 
+    In de volgende hoofdstukken vertel ik u graag over de keuzes die ik heb moeten maken, de situaties waarin ik vast liep en de ontdekkingen die ik heb gemaakt.
+
     \chapter{Gebruikte technologieën}
+    Voordat we beginnen met de SEO en toegankelijkheidsrapportages wil ik even een moment nemen om mijn \textit{tech stack} te introduceren.
+    Dit houdt in de talen, frameworks, libraries en diverse tools waar ik gebruik van heb gemaakt gedurende de ontwikkeling van dit keuzedeel:
+
     \section{TypeScript}
+    Om te beginnen wil ik de meest belangrijke taal in deze \textit{stack} introduceren: \textit{TypeScript}\footfullcite{ts}.
+    Aan het begin van dit keuzedeel heb ik de keuze gemaakt om in plaats van het normale \textit{JavaScript} gebruik te maken van TypeScript.
+    De reden hiervoor is omdat ik een groot fan ben van types. Het maakt code veel voorspelbaarder en ook makkelijker te lezen.
+    Een ander groot pluspunt is het feit dat de \textit{Language Server Protocol (LSP)}\footfullcite{lsp} enorm fijn meewerkt met een typed taal.
+
+    De laatste maanden ben ik veel bezig geweest met PHP (in combinatie met Laravel), C\# en Go. Één ding dat al deze talen en frameworks met elkaar gemeen hebben
+    is dat ze gebruik maken van types. PHP heeft tegenwoordig strict typing. Sinds dit is uitgekomen maakt Laravel gebruik van strict typing op alle APIs die in aanraking komen met de developer.
+    C\# en Go zijn ook beiden typed talen. Geen hebben een optie om dynamisch te werken (enige vergelijkbare punt is dat ze beiden \textit{type inference} hebben, dus hoef je niet alles zelf aan te geven).
+
+    Sinds ik gewend ben geraakt aan het werken met strict typing vond ik het een wijze keuze om dit ook in het JavaScript ecosysteem toe te passen met TypeScript.
+    Met mijn bestaande kennis van \textit{interfaces} en \textit{enums} heb ik veel leuke trucjes uit weten te voeren om solide, veilige en toch uitbreidbare code te schrijven.
 
     \section{Go}
+    Aan het begin van dit keuzedeel heb ik nog een andere bijzondere beslissing gemaakt: Het bouwen van een API.
+    Het klinkt misschien gek om voor een front-end keuzedeel ook de focus te gooien op back-end, maar de reden hiervoor was uiteindelijk heel simpel:
+    Ik wilde graag een dynamische website maken die ook met zoekopdrachten zou werken. Hiervoor kun ik uiteraard gewoon een JSON mokken en uiteindelijk via JS op arrays filteren,
+    maar ik vond het leuker om echt te werken met een API.
+    Ook vond ik het een mooie kans om een API te bouwen met Go, sinds ik dat nog niet vaak gedaan had. Wanneer je de code van dit project ziet, dan lijkt het wel alsof de focus
+    op de back-end lag. Dit komt omdat de root van dit project eigenlijk een Go project-structuur heeft. Het Nuxt project bevindt zich in een sub-directory genaamd ''web``.
+    Nu moet ik toegeven dat ik deze back-end drie keer opnieuw heb geschreven. Uiteraard betekent dit dat ik veel heb geleerd op niet alleen de front-end kant, maar ook de back-end.
+    Achteraf blijkt het dus wel een goede beslissing te zijn om een back-end te hebben gebouwd met Go. Dit heeft de front-end ook mooier gemaakt, omdat ik zoekfuncties en laad-animaties heb kunnen toevoegen.
 
     \section{Nuxt}
     Ik had voor Nuxt gekozen, omdat dit framework met \textit{Server Side Rendering (SSR)} komt.
@@ -45,6 +69,13 @@
     Dat wil betekenen dat op de \textit{initial page load} - het moment dat de pagina voor het eerst wordt ingeladen - alle HTML gegenereerd wordt door de server
     en verstuurd wordt naar de client. Naast deze HTML wordt ook een lading \textit{JavaScript (JS)} meegestuurd. Deze JS neemt het hierna over en maakt van de applicatie een
     \textit{Single-page application (SPA)}\footfullcite{spa}.
+
+    Nuxt maakt gebruik van de Vue.js \textit{templating engine}. Ik had al ervaring met Vue.js, dus was het niet enorm lastig om te wennen aan Nuxt.
+    Door Nuxt te gebruiken ontvang je allerlei ingebouwde functionaliteiten, zoals:
+    \textit{State Management}\footfullcite{state},
+    \textit{Automatic Imports}\footfullcite{autoimports},
+    \textit{File-based Routing}\footfullcite{routing}
+    en andere functies waar ik geen gebruik van heb gemaakt.
 
     \section{Tailwind}
 
