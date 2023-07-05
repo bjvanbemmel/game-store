@@ -44,7 +44,7 @@
     \textit{meta-framework}\footfullcite{meta} voor 
     \textit{Vue.js}\footfullcite{vue}.
     
-    Naast het gebruiken van een front-end framework heb ik er ook voor gekozen om een \textit{Application Programming Interface (API)}\footfullcite{api} te bouwen en gebruiken.
+    Naast het gebruiken van een front-end framework heb ik er ook voor gekozen om een \textit{Application Programming Interface (API)}\footfullcite{api} te bouwen en te gebruiken.
     Deze API heb ik gemaakt met \textit{Go}\footfullcite{go}. Meer over deze beslissing en de uitwerking hiervan vindt u in een later hoofdstuk.
 
     In de volgende hoofdstukken vertel ik u graag over de keuzes die ik heb moeten maken, de situaties waarin ik vast liep en de ontdekkingen die ik heb gemaakt.
@@ -69,7 +69,7 @@
     \section{Go}
     Aan het begin van dit keuzedeel heb ik nog een andere bijzondere beslissing gemaakt: Het bouwen van een API.
     Het klinkt misschien gek om voor een front-end keuzedeel ook de focus te gooien op back-end, maar de reden hiervoor was uiteindelijk heel simpel:
-    Ik wilde graag een dynamische website maken die ook met zoekopdrachten zou werken. Hiervoor kun ik uiteraard gewoon een JSON mokken en uiteindelijk via JS op arrays filteren,
+    Ik wilde graag een dynamische website maken die ook met zoekopdrachten zou werken. Hiervoor kon ik uiteraard gewoon een JSON bestand schrijven en uiteindelijk via JS op arrays filteren,
     maar ik vond het leuker om echt te werken met een API.
     Ook vond ik het een mooie kans om een API te bouwen met Go, sinds ik dat nog niet vaak gedaan had. Wanneer je de code van dit project ziet, dan lijkt het wel alsof de focus
     op de back-end lag. Dit komt omdat de root van dit project eigenlijk een Go project-structuur heeft. Het Nuxt project bevindt zich in een sub-directory genaamd ''web``.
@@ -148,7 +148,7 @@
 
     \section{Performance}
     Op het gebied van \textit{performance} scoort de website een \textbf{96}.
-    Dit is met grote dank aan de snelheid van Nuxt, dus neem ik hier niet teveel credit voor.
+    Dit is met grote dank aan de snelheid van Nuxt, dus neem ik hier niet te veel credit voor.
     Lighthouse geeft mij wel een aantal \textit{opportunities} - verbeterpunten, waarmee de website uiteindelijk \textbf{100} punten kan krijgen.
     Helaas zijn een aantal van deze verbeterpunten moeilijk toe te passen.
 
@@ -156,7 +156,7 @@
     Volgens Lighthouse kunnen wij ongeveer 3.77 secondes aan laadtijd besparen door de bestandsgrootte van de afbeeldingen kleiner te maken.
     Al hoewel de 3.77 secondes ruim ingeschat zijn, gezien het feit dat de pagina laadt in onder een seconde tijd, ben ik het hier wel mee eens.
 
-    Momenteel worden alle afbeeldingen gehaald van drie bronnen: de \textit{Content Delivery Network (CDN)}\footfullcite{cdn} van DuckDuckGo,
+    Momenteel worden alle afbeeldingen gehaald vanuit drie verschillende bronnen: de \textit{Content Delivery Network (CDN)}\footfullcite{cdn} van DuckDuckGo,
     de CDN van Cloudflare en de CDN van Akamai.
 
     Deze CDNs zijn van nature al enorm snel in het ophalen van afbeeldingen, maar de bestandsgroottes zijn uiteraard niet geoptimaliseerd voor mijn gebruik.
@@ -173,7 +173,7 @@
 
     \subsection{Enable text compression}
     Alle tekst wordt kaal naar de website gestuurd door de API. Hier bevindt zich dus een verbetervoorstel, want we kunnen ook de tekst eerst met bijvoorbeeld
-    {\fontfamily{courier}\selectfont gzip} encoden, naar de front-end sturen, en hem daar weel decoden naar normale tekst. Dit zou dataverkeer moeten verminderen.
+    {\fontfamily{courier}\selectfont gzip} encoden, naar de front-end sturen, en hem daar weer decoden naar normale tekst. Dit zou dataverkeer moeten verminderen.
 
     Nu ben ik het hier niet mee eens, want het gaat hier om enorm weinig tekst. Dit is misschien verstandig voor iets als Wikipedia, maar in het geval van deze website
     haalt het een paar kilobytes aan dataverkeer weg en voegt het enorm veel meer werk toe voor de client om uit te voeren.
@@ -184,12 +184,16 @@
 
     \subsection{Avoid enormous network payloads}
     Één ding waar mijn front-end een beetje tegen aan loopt is mijn back-end API. Ik heb het zo geschreven dat de API alle mogelijke relaties gelijk
-    meegeeft in de API responses. Dit maakt het gemakkelijk om mee te coderen, want ik hoef maar één API call te maken, maar het genereerd gigantische
+    meegeeft in de API responses. Dit maakt het gemakkelijk om mee te coderen, want ik hoef maar één API call te maken, maar het genereert gigantische
     lijsten aan data. Deze API calls worden wederom wel asynchroon uitgevoerd, dus gebruikers zien de website niet in elkaar gestapeld worden.
     Ik heb gebruik gemaakt van \textit{skeletons} als een indicator van laden. Het verschil tussen een normaal laad icoontje en een skeleton is dat een skeleton
     al de layout van de daadwerkelijke website heeft. Er verspringt dus aanzienlijk weinig.
 
     \section{Toegankelijkheid}
+    Op het gebied van \textit{toegankelijkheid} scoort de website een \textbf{77}.
+    Alle verbetervoorstellen die Lighthouse opnoemt zijn makkelijk uitvoerbaar, dus is dit ook zeker iets om achteraan te gaan.
+    Het grootste probleem ligt hem in het gebrek aan hulpfuncties voor screenreaders.
+
     \subsection{Image elements do not have [alt] attributes}
     Op het gebied van toegankelijkheid is het grootste minpunt het gebrek aan de {\fontfamily{courier}\selectfont alt} attributes.
     Deze worden gebruikt wanneer een afbeelding niet ingeladen kan worden, maar ook door screenreaders (applicaties die de teksten van een website uitlezen voor minderzienden).
@@ -205,21 +209,30 @@
     Mijn applicatie maakt gebruik van een donker thema. Dit houdt in dat alle kleuren aan de donkere kant van het kleurenspectrum liggen.
     Ik heb er bovendien voor gekozen om ook donkere tekst te gebruiken bij links en elementen waar ik de aandacht op wil verminderen.
     Denk bijvoorbeeld aan de links naar de gameontwikkelaars. Deze links zijn lichtgrijs op een donkergrijze achtergrond. Dit lijkt achteraf
-    toch niet zo'n goed idee te zijn, want mensen met kleurenblindheid kunnen hier veel moeite mee hebben. Een idee is dus om een hoger contrast te gebruiken.
+    toch niet zo'n goed idee te zijn, want mensen met kleurenblindheid kunnen hier veel moeite mee hebben. Een idee is dus om lichtere kleuren te gebruiken die een hoger contrast opleveren.
 
     \subsection{[html] element does not have a [lang] attribute}
     Het probleem dat Lighthouse hier identificeert is het gebrek aan een duidelijk aangegeven taal waar de webbrowser gebruik van kan maken.
-    Momenteel moet de browser gokken welke taar er wordt gebruikt op de website. Webbrowsers weten inmiddels wel de juiste talen te gokken aan de hang van de teksten,
+    Momenteel moet de browser gokken welke taal er wordt gebruikt op de website. Webbrowsers weten inmiddels wel de juiste talen te gokken aan de hang van de teksten,
     maar het is niet netjes. De oplossing is dus om een vaste taal toe te voegen. In het geval van deze website zal dat \textit{EN} zijn.
 
     \section{Best practices}
+    Op het gebied van \textit{best practices} scoort de website een \textbf{92}.
+    Eigenlijk valt hier weinig op te zeggen, want het enige dat Lighthouse opnoemt is iets dat Nuxt zelf veroorzaakt.
+    Een score dus waar ik zelf zeer tevreden mee ben.
+
     \subsection{Uses deprecated APIs}
     Lighthouse geeft aan dat één van de APIs die ik gebruik niet meer ontwikkeld wordt.
-    In de toelichting geeft Lighthouse aan dat het gaat om de \textit{'Expect-CT'} header. Deze wordt door Nuxt toegevoegd, dus kan ik hier weinig aan veranderen.
+    In de toelichting geeft Lighthouse aan dat het gaat om de \textit{''Expect-CT``} header. Deze wordt door Nuxt toegevoegd, dus kan ik hier weinig aan veranderen.
 
     \section{SEO}
+    Op het gebied van \textit{best practices} scoort de website een \textbf{70}.
+    Dit is de score waar ik het meeste mee zit, want ik had specifiek voor Nuxt gekozen om de SEO te verbeteren.
+    Nu is het wel duidelijk dat Nuxt veel van de \textit{heavy lifting} heeft gedaan, want alle punten die worden aangegeven zijn compleet aan mij,
+    en bovendoen ook nog eens makkelijk op te lossen.
+
     \subsection{Document does not have a meta description}
-    Wanneer u Google gebruikt herkent u misschien wel het korte stuk tekst dat onder elke link gevonden kan worden.
+    Wanneer u Google gebruikt herkent u misschien wel het korte stukje tekst dat onder elke link gevonden kan worden.
     Als developer heeft u de mogelijkheid om deze tekst zelf uit te schrijven en hem te verwerken in de {\fontfamily{courier}\selectfont meta} tags van de HTML.
     Wanneer een developer er voor kiest om dit niet te doen, gebruikt Google meestal de eerste aantal worden van een stuk tekst die op de pagina gevonden kan worden.
     Het handmatig schrijven van een korte omschrijving kan veel verschil maken, want het geeft de ontwikkelaar de kans om zelf een krachtige introductie te schrijven.
@@ -228,14 +241,14 @@
     Lighthouse bedoelt hiermee te zeggen dat één of meerdere links nergens naartoe leiden. In deze situatie gaat het om een ''link``
     die gevonden kan worden op kleinere resoluties. Deze dient als functie om een zoekbalk te openen. Een betere keuze is om van deze link een knop te maken,
     maar ik had gekozen een link te gebruiken omdat er een bestaand component is met allerlei styling en logica die exact had wat ik zocht, op het feit dat het een
-    link is na. Om dit te verhelpen moet er een kopie van die link komen die als knop dient te functioneren.
+    link is ná. Om dit te verhelpen moet er een kopie van die link komen die als knop dient te functioneren.
 
     \chapter{Reflectie}
     De afgelopen twéé maanden heb ik veel geleerd. Ik heb geleerd om i.p.v. een ORM gewoon de standaard SQL package te gebruiken binnen Go (die ik uiteindelijk veel fijner vind),
-    Nuxt onder de knie gekregen en een (naar mijn mening) mooie site opgeleverd. Is het perfect? Natuurlijk niet, zoals Lighthouse in het vorige hoofdstuk al aangaf. Maar het is
+    Nuxt onder de knie gekregen en een (naar mijn mening) mooie site opgeleverd. Is het perfect? Natuurlijk niet, zoals Lighthouse in het vorige hoofdstuk al aangaf, maar het is
     wel mijn beste front-end werk tot nu toe, dus daar mag ik trots op zijn.
 
-    Wel zijn er dingen die ik liever beter had gedaan. Zo heb ik de front-end niet mobile first gemaakt. Dit beketent dat ik i.p.v. het eerst designen voor mobiel en vervolgens
+    Wel zijn er dingen die ik liever anders had gedaan. Zo heb ik de front-end niet \textit{mobile-first} gemaakt. Dit beketent dat ik i.p.v. het eerst designen voor mobiel en vervolgens
     opschalen naar desktop het heb ontworpen voor desktop en moeten verkleinen naar mobiel. Dat is een enorm lastige taak, vooral met de componenten waar ik mee werkte.
     Uiteindelijk is het gelukt, maar ik zou het niet nog eens op deze wijze willen doen. Een grote les geleerd dus.
 
@@ -243,8 +256,8 @@
     Dit maakt het lastig voor de front-end om tegen aan te programmeren. Een ander groot probleem is dat mijn API een \textit{null pointer dereference} error krijgt wanneer er geen
     items in de database staan. Dit kan in de praktijk eigenlijk echt niet, want daarmee crasht je hele applicatie.
 
-    Naast deze twéé punten ben ik alsnog erg tevreden over de uitwerking van dit keuzedeel. Ik zie mijzelf zeker meer Nuxt gebruiken en mobile-first ontwikkelen.
-    Een geslaagd keuzedeel, als je het aan mij vraagt.
+    Naast deze twéé punten ben ik alsnog erg tevreden over de uitwerking van dit keuzedeel. Ik zie mijzelf zeker meer Nuxt gebruiken en voortaan mobile-first ontwikkelen.
+    Een geslaagd keuzedeel als je het aan mij vraagt.
 
     \printbibliography
 \end{document}
