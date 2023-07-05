@@ -4,6 +4,21 @@
 \addbibresource{citations.bib}
 \usepackage{csquotes}
 \usepackage{lmodern}
+\usepackage{listings}
+\lstdefinestyle{css}{%
+    xleftmargin={0.75cm},
+    numbers=left,
+    stepnumber=1,
+    firstnumber=1,
+    numberfirstline=true,
+    tabsize=4,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    extendedchars=true,
+    breaklines=true,
+    frame=single,
+}
 \renewcommand{\familydefault}{\sfdefault}
 
 \title{Front-end keuzedeel eindverslag}
@@ -78,6 +93,38 @@
     en andere functies waar ik geen gebruik van heb gemaakt.
 
     \section{Tailwind}
+    Bij een front-end opdracht hoort HTML, en bij HTML hoort CSS.
+    Al hoewel ik voldoende ervaring heb met het schrijven van CSS, vind ik het een vervelende taal om mee te werken.
+    Het creëert een gigantische lijst aan korte \textit{key:value} pairs, die allemaal gelinkt zijn aan een element, class of id - soms ook met speciale selectors.
+    Zo'n CSS bestand gaat al snel de duizenden lijnen in bij een applicatie van gemiddelde grootte. Nu biedt Vue.js (en daarbij dus ook Nuxt) de mogelijkheid aan om
+    \textit{scoped CSS}\footfullcite{scopedcss} te gebruiken. Helaas verhelpt dit niet het probleem dat je een gigantische lijst met korte lijnen krijgt.
+    Uiteraard kun je de CSS minimaliseren, maar dan wordt het nog onleesbaarder en lastiger te navigeren voor de developer.
+
+    Van dit probleem hebben meerdere mensen last, daarom bestaat er een CSS library genaamd \textit{Tailwind CSS}\footfullcite{tailwind}.
+
+    Het idee van Tailwind is dat alle mogelijke styling options een eigen class hebben. Wat volgt is een klein voorbeeld van vanilla CSS vergeleken met Tailwind classes.
+    \begin{lstlisting}[caption={A Flexbox container with a border in vanilla CSS}, label=useless, style=css]
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: .1rem solid black;
+    }
+    \end{lstlisting}
+    \begin{lstlisting}[caption={The same container using Tailwind classes}, label=useless, style=css]
+    <div
+        class="flex justify-center items-center border-1 border-black"
+    ></div>
+    \end{lstlisting}
+
+    In het begin zal dit misschien als een slechte oplossing lijken. Zo creëer je namelijk i.p.v. een gigantische lijst aan korte lijnen een grote lijst met classes.
+    Dit klopt in principe ook, maar in de praktijk zult u zien dat het een verbetering is op standaard CSS. Alle styling wordt gedefinieerd exact waar het nodig is.
+    Zo hoef je dus niet steeds twee bestanden met elkaar te vergelijken. Hierdoor is het in één oogopslag duidelijk hoe een HTML element eruit komt te zien.
+
+    Tailwind bevat ook predefined classes voor kleuren, border-radius, shadow etc. Zo kunt u bijvoorbeeld {\fontfamily{courier}\selectfont bg-red-500} gebruiken
+    om een hoog contrast rood te krijgen. Tailwind kent dus een groot hoeveelheid classes die gecureerde styling bevatten. Niet op het niveau als
+    \textit{Bootstrap}\footfullcite{bootstrap}, waar kant en klare buttons bestaan, maar op vorm en kleur niveau. Dit geeft een developer de flexibiliteit van vanilla CSS
+    met het gemak van Bootstrap.
 
     \section{Docker}
 
