@@ -141,13 +141,110 @@
 
     Docker is puur gemak, dus maak ik er graag gebruik van.
 
-    \chapter{SEO}
+    \chapter{Lighthouse rapportage}
+    Wat volgt is een rapportage van \textit{Lighthouse}\footfullcite{lighthouse} op het gebied van \textit{Search Engine Optimization (SEO)}\footfullcite{seo},
+    \textit{performance}, toegankelijkheid en \textit{best practices}.
+    Ik noteer de punten die ik van Lighthouse krijg, licht toe wat ermee wordt bedoeld en hoe ik het mogelijk zou kunnen verbeteren.
 
-    \chapter{Toegankelijkheid}
+    \section{Performance}
+    Op het gebied van \textit{performance} scoort de website een \textbf{96}.
+    Dit is met grote dank aan de snelheid van Nuxt, dus neem ik hier niet teveel credit voor.
+    Lighthouse geeft mij wel een aantal \textit{opportunities} - verbeterpunten, waarmee de website uiteindelijk \textbf{100} punten kan krijgen.
+    Helaas zijn een aantal van deze verbeterpunten moeilijk toe te passen.
 
-    \chapter{Verbetervoorstellen}
+    \subsection{Properly size images}
+    Volgens Lighthouse kunnen wij ongeveer 3.77 secondes aan laadtijd besparen door de bestandsgrootte van de afbeeldingen kleiner te maken.
+    Al hoewel de 3.77 secondes ruim ingeschat zijn, gezien het feit dat de pagina laadt in onder een seconde tijd, ben ik het hier wel mee eens.
+
+    Momenteel worden alle afbeeldingen gehaald van drie bronnen: de \textit{Content Delivery Network (CDN)}\footfullcite{cdn} van DuckDuckGo,
+    de CDN van Cloudflare en de CDN van Akamai.
+
+    Deze CDNs zijn van nature al enorm snel in het ophalen van afbeeldingen, maar de bestandsgroottes zijn uiteraard niet geoptimaliseerd voor mijn gebruik.
+    Een mogelijke optie is dan ook om zelf alle afbeeldingen te downloaden, ze te compressen en ze als laatste te croppen naar de verschillende formaten waarin ik ze gebruik.
+    Aan het begin van dit project was er al een idee om een eigen CDN op te bouwen, maar die heb ik er later uitgehaald omdat er te veel focus kwam te liggen op de back-end.
+
+    \subsection{Serve images in next-gen formats}
+    Dit sluit een beetje aan bij het vorige verbeterpunt. In plaats van bestandsgrootte (ook al wordt dit er uiteraard ook in meegenomen) gaat het hier om het bestandsformaat.
+    Momenteel zijn alle afbeeldingen opgeslagen als JPEG bestanden, maar een moderner formaat zoals WEBP zou beter zijn om data verkeer te verminderen.
+
+    \subsection{Efficiently encode images}
+    Dit sluit wederom weer aan bij de vorige twéé punten, maar dan gaat deze echt specifiek om het compressen van de afbeeldingen.
+    Het is dus nogmaals een verstandig idee om een compressie algoritme op de afbeeldingen los te laten.
+
+    \subsection{Enable text compression}
+    Alle tekst wordt kaal naar de website gestuurd door de API. Hier bevindt zich dus een verbetervoorstel, want we kunnen ook de tekst eerst met bijvoorbeeld
+    {\fontfamily{courier}\selectfont gzip} encoden, naar de front-end sturen, en hem daar weel decoden naar normale tekst. Dit zou dataverkeer moeten verminderen.
+
+    Nu ben ik het hier niet mee eens, want het gaat hier om enorm weinig tekst. Dit is misschien verstandig voor iets als Wikipedia, maar in het geval van deze website
+    haalt het een paar kilobytes aan dataverkeer weg en voegt het enorm veel meer werk toe voor de client om uit te voeren.
+
+    \subsection{Reduce unused JavaScript}
+    Dit is een verbetervoorstel waar ik vrij weinig mee kan. Ik gebruik Nuxt als framework, en die neemt de taak op zich om JS te genereren.
+    Ik heb dus weinig invloed op de hoeveelheid ongebruikte JS die gegenereerd wordt. Ik snap het idee, maar het is in mijn situatie niet uitvoerbaar.
+
+    \subsection{Avoid enormous network payloads}
+    Één ding waar mijn front-end een beetje tegen aan loopt is mijn back-end API. Ik heb het zo geschreven dat de API alle mogelijke relaties gelijk
+    meegeeft in de API responses. Dit maakt het gemakkelijk om mee te coderen, want ik hoef maar één API call te maken, maar het genereerd gigantische
+    lijsten aan data. Deze API calls worden wederom wel asynchroon uitgevoerd, dus gebruikers zien de website niet in elkaar gestapeld worden.
+    Ik heb gebruik gemaakt van \textit{skeletons} als een indicator van laden. Het verschil tussen een normaal laad icoontje en een skeleton is dat een skeleton
+    al de layout van de daadwerkelijke website heeft. Er verspringt dus aanzienlijk weinig.
+
+    \section{Toegankelijkheid}
+    \subsection{Image elements do not have [alt] attributes}
+    Op het gebied van toegankelijkheid is het grootste minpunt het gebrek aan de {\fontfamily{courier}\selectfont alt} attributes.
+    Deze worden gebruikt wanneer een afbeelding niet ingeladen kan worden, maar ook door screenreaders (applicaties die de teksten van een website uitlezen voor minderzienden).
+    Het is dus wel een belangrijk iets om te hebben, en ook makkelijk te implementeren. Ik was vergeten dit te doen tijdens het bouwen van de applicatie, dus neem ik het graag mee
+    als een verbetervoorstel.
+
+    \subsection{Links do not have a discernible name}
+    Nog een grote misklapper op het gebied van toegankelijkheid is het gebrek aan {\fontfamily{courier}\selectfont aria-label} attributes.
+    Deze kun je toevoegen aan links binnen de website. Screenreaders lezen deze vervolgens uit om duidelijkheid te geven waar een link voor dient.
+    In de meeste instanties ook een makkelijke oplossing om toe te passen, dus wederom ééntje om mee te nemen als verbetervoorstel.
+
+    \subsection{Background and foreground colors do not have a sufficient contrast ratio}
+    Mijn applicatie maakt gebruik van een donker thema. Dit houdt in dat alle kleuren aan de donkere kant van het kleurenspectrum liggen.
+    Ik heb er bovendien voor gekozen om ook donkere tekst te gebruiken bij links en elementen waar ik de aandacht op wil verminderen.
+    Denk bijvoorbeeld aan de links naar de gameontwikkelaars. Deze links zijn lichtgrijs op een donkergrijze achtergrond. Dit lijkt achteraf
+    toch niet zo'n goed idee te zijn, want mensen met kleurenblindheid kunnen hier veel moeite mee hebben. Een idee is dus om een hoger contrast te gebruiken.
+
+    \subsection{[html] element does not have a [lang] attribute}
+    Het probleem dat Lighthouse hier identificeert is het gebrek aan een duidelijk aangegeven taal waar de webbrowser gebruik van kan maken.
+    Momenteel moet de browser gokken welke taar er wordt gebruikt op de website. Webbrowsers weten inmiddels wel de juiste talen te gokken aan de hang van de teksten,
+    maar het is niet netjes. De oplossing is dus om een vaste taal toe te voegen. In het geval van deze website zal dat \textit{EN} zijn.
+
+    \section{Best practices}
+    \subsection{Uses deprecated APIs}
+    Lighthouse geeft aan dat één van de APIs die ik gebruik niet meer ontwikkeld wordt.
+    In de toelichting geeft Lighthouse aan dat het gaat om de \textit{'Expect-CT'} header. Deze wordt door Nuxt toegevoegd, dus kan ik hier weinig aan veranderen.
+
+    \section{SEO}
+    \subsection{Document does not have a meta description}
+    Wanneer u Google gebruikt herkent u misschien wel het korte stuk tekst dat onder elke link gevonden kan worden.
+    Als developer heeft u de mogelijkheid om deze tekst zelf uit te schrijven en hem te verwerken in de {\fontfamily{courier}\selectfont meta} tags van de HTML.
+    Wanneer een developer er voor kiest om dit niet te doen, gebruikt Google meestal de eerste aantal worden van een stuk tekst die op de pagina gevonden kan worden.
+    Het handmatig schrijven van een korte omschrijving kan veel verschil maken, want het geeft de ontwikkelaar de kans om zelf een krachtige introductie te schrijven.
+
+    \subsection{Links are not crawlable}
+    Lighthouse bedoelt hiermee te zeggen dat één of meerdere links nergens naartoe leiden. In deze situatie gaat het om een ''link``
+    die gevonden kan worden op kleinere resoluties. Deze dient als functie om een zoekbalk te openen. Een betere keuze is om van deze link een knop te maken,
+    maar ik had gekozen een link te gebruiken omdat er een bestaand component is met allerlei styling en logica die exact had wat ik zocht, op het feit dat het een
+    link is na. Om dit te verhelpen moet er een kopie van die link komen die als knop dient te functioneren.
 
     \chapter{Reflectie}
+    De afgelopen twéé maanden heb ik veel geleerd. Ik heb geleerd om i.p.v. een ORM gewoon de standaard SQL package te gebruiken binnen Go (die ik uiteindelijk veel fijner vind),
+    Nuxt onder de knie gekregen en een (naar mijn mening) mooie site opgeleverd. Is het perfect? Natuurlijk niet, zoals Lighthouse in het vorige hoofdstuk al aangaf. Maar het is
+    wel mijn beste front-end werk tot nu toe, dus daar mag ik trots op zijn.
+
+    Wel zijn er dingen die ik liever beter had gedaan. Zo heb ik de front-end niet mobile first gemaakt. Dit beketent dat ik i.p.v. het eerst designen voor mobiel en vervolgens
+    opschalen naar desktop het heb ontworpen voor desktop en moeten verkleinen naar mobiel. Dat is een enorm lastige taak, vooral met de componenten waar ik mee werkte.
+    Uiteindelijk is het gelukt, maar ik zou het niet nog eens op deze wijze willen doen. Een grote les geleerd dus.
+
+    Verder heb ik mijn Go API niet uitstekend neergezet. Het grootste probleem is het gebrek aan error handling. De API stuurt eigenlijk alleen maar HTTP status codes 200 en 500 terug.
+    Dit maakt het lastig voor de front-end om tegen aan te programmeren. Een ander groot probleem is dat mijn API een \textit{null pointer dereference} error krijgt wanneer er geen
+    items in de database staan. Dit kan in de praktijk eigenlijk echt niet, want daarmee crasht je hele applicatie.
+
+    Naast deze twéé punten ben ik alsnog erg tevreden over de uitwerking van dit keuzedeel. Ik zie mijzelf zeker meer Nuxt gebruiken en mobile-first ontwikkelen.
+    Een geslaagd keuzedeel, als je het aan mij vraagt.
 
     \printbibliography
 \end{document}
