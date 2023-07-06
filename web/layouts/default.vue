@@ -3,12 +3,12 @@
         <ClientOnly>
             <DefaultModal
                 :active="mobileSearch"
-                @toggle="(v) => mobileSearch = v"
+                @toggle="(v: boolean) => mobileSearch = v"
                 :centered="false"
                 class="justify-center"
             >
                 <NavigationSearch
-                    class="w-72 sm:w-80 md:w-96"
+                    class="w-72 sm:w-80 md:w-[32rem]"
                     :autofocus="true"
                     :blackbox="false"
                 />

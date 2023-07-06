@@ -2,7 +2,7 @@
     <ClientOnly>
         <DefaultModal
             :active="data.modal"
-            @toggle="(v) => data.modal = v"
+            @toggle="(v: boolean) => data.modal = v"
         >
             <div class="relative group">
                 <GameMedia
